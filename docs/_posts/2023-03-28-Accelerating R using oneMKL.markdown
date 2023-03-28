@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Accelerating R using oneMKL."
-date:   2023-03-288 16:50:46 +0200
+date:   2023-03-28 16:50:46 +0200
 categories: guide
 ---
 
