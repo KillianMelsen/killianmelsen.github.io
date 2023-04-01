@@ -161,8 +161,20 @@ As mentioned, oneMKL can be installed as part of the oneAPI Base Toolkit. Howeve
         
         Press <enter> to keep the current choice[*], or type selection number:
 
+# Setting the number of threads
 
+While the default BLAS and LAPACK libraries are single-threaded, oneMKL can make use of multiple threads. By default it uses as many threads as there are physical cores in the system. This can be problematic if a script or function makes use of explicit parallelization using, for example, the foreach package. In that case the number of threads to be used by oneMKL must be manually set to 1.
 
+1.  Open up the terminal in your VM and check if nano is installed by running `nano --version`. If it is not installed it can be installed by running `sudo apt install nano`.
+2.  Run `sudo nano /etc/environment`.
+3.  Add the following line to the bottom of the file: `MKL_NUM_THREADS=1`. The file should look like this:
+
+        PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
+        MKL_THREADING_LAYER=GNU
+        MKL_NUM_THREADS=1
+
+4.  Press Ctrl + X followed by the Y key to save the changes and press Enter to overwrite the file.
+5.  Restart the VM. While oneMKL using 1 thread will not be *as* fast as allowing it to use multiple threads, it will still far outperform the default BLAS and LAPACK libraries.
 
 
 
