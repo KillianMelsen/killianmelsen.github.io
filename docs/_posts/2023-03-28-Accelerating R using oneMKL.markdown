@@ -176,7 +176,8 @@ While the default BLAS and LAPACK libraries are single-threaded, oneMKL can make
 4.  Press Ctrl + X followed by the Y key to save the changes and press Enter to overwrite the file.
 5.  Restart the VM. While oneMKL using 1 thread will not be *as* fast as allowing it to use multiple threads, it will still far outperform the default BLAS and LAPACK libraries.
 
-
+# Results
+![Computational times for some operations](/assets/all_log.png)
 
 
 
