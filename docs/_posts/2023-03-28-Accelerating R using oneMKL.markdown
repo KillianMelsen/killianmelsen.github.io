@@ -177,8 +177,9 @@ While the default BLAS and LAPACK libraries are single-threaded, oneMKL can make
 5.  Restart the VM. While oneMKL using 1 thread will not be *as* fast as allowing it to use multiple threads, it will still far outperform the default BLAS and LAPACK libraries.
 
 # Results
+The figures below show the running times for a few operations measured using microbenchmark (n = 20) and the relative speed of the oneMKL libraries compared to the default BLAS/LAPACK libraries on Windows.
 ![Computational times for some operations](/assets/all_log.png)
-
+![Relative speed](/assets/all_relative.png)
 
 
 
