@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Accelerating R using oneMKL"
-date:   2023-03-28 17:42:46 +0200
+title: "Accelerating R using oneMKL"
+date: 2023-03-28 17:42:46 +0200
 categories: guide
 ---
 
@@ -54,119 +54,128 @@ The default BLAS and LAPACK libraries used by R are rather slow, meaning install
 # Installing R and RStudio
 
 1.  R can be installed by following the instructions at <https://cloud.r-project.org/bin/linux/ubuntu/> under **Install R** (running the lines in the terminal).
+
 2.  RStudio can be installed by simply downloading the Ubuntu 22 installer from <https://posit.co/download/rstudio-desktop/> and opening the file with Software Install (right-click the file, click **Open With Other Application**, and double-click **Software Install**).
+
 3.  Open up the terminal again and run `sudo apt-get install build-essential`.
+
 4.  We can now open up RStudio and see what BLAS and LAPACK libraries we are using by running `sessionInfo()` in the console:
 
+    ```{=html}
     <pre>> sessionInfo()
     R version 4.2.3 (2023-03-15)
     Platform: x86_64-pc-linux-gnu (64-bit)
     Running under: Ubuntu 22.04.2 LTS
-    
+
     Matrix products: default
     <b>BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.10.0</b>
     <b>LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.10.0</b>
-    
+
     locale:
      [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C               LC_TIME=nl_NL.UTF-8       
      [4] LC_COLLATE=en_US.UTF-8     LC_MONETARY=nl_NL.UTF-8    LC_MESSAGES=en_US.UTF-8   
      [7] LC_PAPER=nl_NL.UTF-8       LC_NAME=C                  LC_ADDRESS=C              
     [10] LC_TELEPHONE=C             LC_MEASUREMENT=nl_NL.UTF-8 LC_IDENTIFICATION=C       
-    
+
     attached base packages:
     [1] stats     graphics  grDevices utils     datasets  methods   base     
-    
+
     loaded via a namespace (and not attached):
     [1] compiler_4.2.3 tools_4.2.3   
     ></pre>
+    ```
 
 # Installing Intel oneMKL
 
-As mentioned, oneMKL can be installed as part of the oneAPI Base Toolkit. However, this toolkit is quite large at ~20 GB. We only need oneMKL and installing it as a standalone component (~3 GB) saves a lot of space.
+As mentioned, oneMKL can be installed as part of the oneAPI Base Toolkit. However, this toolkit is quite large at \~20 GB. We only need oneMKL and installing it as a standalone component (\~3 GB) saves a lot of space.
 
 1.  Open up the terminal in your VM and run the following lines (you might have to press Enter and enter your password after running the first line):
 
         wget -O- https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB | gpg --dearmor | sudo tee /usr/share/keyrings/oneapi-archive-keyring.gpg > /dev/null
-        
+
         echo "deb [signed-by=/usr/share/keyrings/oneapi-archive-keyring.gpg] https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
-        
+
         sudo apt update
 
 2.  We can now look at what versions of oneMKL are available by running the following line:
 
         sudo -E apt-cache pkgnames intel | grep intel-oneapi-mkl | grep -v intel-oneapi-runtime
-  
+
     The latest version at the time of writing is `intel-oneapi-mkl-2023.0.0`.
-  
+
 3.  To install this version we run:
 
         sudo apt install intel-oneapi-mkl-2023.0.0
 
-4. Now run the following lines:
+4.  Now run the following lines:
 
-        sudo update-alternatives --install /usr/lib/x86_64-linux-gnu/libblas.so libblas.so-x86_64-linux-gnu /opt/intel/oneapi/mkl/2023.0.0/lib/intel64/libmkl_rt.so 50
-        
-        sudo update-alternatives --install /usr/lib/x86_64-linux-gnu/libblas.so.3 libblas.so.3-x86_64-linux-gnu /opt/intel/oneapi/mkl/2023.0.0/lib/intel64/libmkl_rt.so 50
-        
-        sudo update-alternatives --install /usr/lib/x86_64-linux-gnu/liblapack.so liblapack.so-x86_64-linux-gnu /opt/intel/oneapi/mkl/2023.0.0/lib/intel64/libmkl_rt.so 50
-        
-        sudo update-alternatives --install /usr/lib/x86_64-linux-gnu/liblapack.so.3 liblapack.so.3-x86_64-linux-gnu /opt/intel/oneapi/mkl/2023.0.0/lib/intel64/libmkl_rt.so 50
+         sudo update-alternatives --install /usr/lib/x86_64-linux-gnu/libblas.so libblas.so-x86_64-linux-gnu /opt/intel/oneapi/mkl/2023.0.0/lib/intel64/libmkl_rt.so 50
 
-        echo "/opt/intel/oneapi/mkl/2023.0.0/lib/intel64" | sudo tee /etc/ld.so.conf.d/mkl.conf
-        
-        sudo ldconfig
-        
-        echo "MKL_THREADING_LAYER=GNU" | sudo tee /etc/environment -a
-        
-5. If we now open RStudio and run `sessionInfo()` in the console we should see that we are using the Intel oneMKL BLAS and LAPACK libraries:
+         sudo update-alternatives --install /usr/lib/x86_64-linux-gnu/libblas.so.3 libblas.so.3-x86_64-linux-gnu /opt/intel/oneapi/mkl/2023.0.0/lib/intel64/libmkl_rt.so 50
 
+         sudo update-alternatives --install /usr/lib/x86_64-linux-gnu/liblapack.so liblapack.so-x86_64-linux-gnu /opt/intel/oneapi/mkl/2023.0.0/lib/intel64/libmkl_rt.so 50
+
+         sudo update-alternatives --install /usr/lib/x86_64-linux-gnu/liblapack.so.3 liblapack.so.3-x86_64-linux-gnu /opt/intel/oneapi/mkl/2023.0.0/lib/intel64/libmkl_rt.so 50
+
+         echo "/opt/intel/oneapi/mkl/2023.0.0/lib/intel64" | sudo tee /etc/ld.so.conf.d/mkl.conf
+
+         sudo ldconfig
+
+         echo "MKL_THREADING_LAYER=GNU" | sudo tee /etc/environment -a
+
+5.  If we now open RStudio and run `sessionInfo()` in the console we should see that we are using the Intel oneMKL BLAS and LAPACK libraries:
+
+    ```{=html}
     <pre>> sessionInfo()
-    R version 4.2.3 (2023-03-15)
-    Platform: x86_64-pc-linux-gnu (64-bit)
-    Running under: Ubuntu 22.04.2 LTS
-    
-    Matrix products: default
-    <b>BLAS/LAPACK: /opt/intel/oneapi/mkl/2023.0.0/lib/intel64/libmkl_rt.so.2</b>
-    
-    locale:
-     [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C               LC_TIME=nl_NL.UTF-8       
-     [4] LC_COLLATE=en_US.UTF-8     LC_MONETARY=nl_NL.UTF-8    LC_MESSAGES=en_US.UTF-8   
-     [7] LC_PAPER=nl_NL.UTF-8       LC_NAME=C                  LC_ADDRESS=C              
-    [10] LC_TELEPHONE=C             LC_MEASUREMENT=nl_NL.UTF-8 LC_IDENTIFICATION=C       
-    
-    attached base packages:
-    [1] stats     graphics  grDevices utils     datasets  methods   base     
-    
-    loaded via a namespace (and not attached):
-    [1] compiler_4.2.3 tools_4.2.3   
-    ></pre>
+     R version 4.2.3 (2023-03-15)
+     Platform: x86_64-pc-linux-gnu (64-bit)
+     Running under: Ubuntu 22.04.2 LTS
 
-6. Switching back between the default and oneMKL libraries is possible using the following commands:
+     Matrix products: default
+     <b>BLAS/LAPACK: /opt/intel/oneapi/mkl/2023.0.0/lib/intel64/libmkl_rt.so.2</b>
 
-        # For the BLAS library:
-        sudo update-alternatives --config libblas.so.3-x86_64-linux-gnu
-        
-        # For the LAPACK library:
-        sudo update-alternatives --config liblapack.so.3-x86_64-linux-gnu
-        
+     locale:
+      [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C               LC_TIME=nl_NL.UTF-8       
+      [4] LC_COLLATE=en_US.UTF-8     LC_MONETARY=nl_NL.UTF-8    LC_MESSAGES=en_US.UTF-8   
+      [7] LC_PAPER=nl_NL.UTF-8       LC_NAME=C                  LC_ADDRESS=C              
+     [10] LC_TELEPHONE=C             LC_MEASUREMENT=nl_NL.UTF-8 LC_IDENTIFICATION=C       
+
+     attached base packages:
+     [1] stats     graphics  grDevices utils     datasets  methods   base     
+
+     loaded via a namespace (and not attached):
+     [1] compiler_4.2.3 tools_4.2.3   
+     ></pre>
+    ```
+
+6.  Switching back between the default and oneMKL libraries is possible using the following commands:
+
+         # For the BLAS library:
+         sudo update-alternatives --config libblas.so.3-x86_64-linux-gnu
+
+         # For the LAPACK library:
+         sudo update-alternatives --config liblapack.so.3-x86_64-linux-gnu
+
     Running these lines opens a menu where a number can be entered to select the desired library:
 
-        There are 2 choices for the alternative libblas.so.3-x86_64-linux-gnu (providing /usr/lib/x86_64-linux-gnu/libblas.so.3).
+         There are 2 choices for the alternative libblas.so.3-x86_64-linux-gnu (providing /usr/lib/x86_64-linux-gnu/libblas.so.3).
 
-          Selection    Path                                                     Priority   Status
-        ------------------------------------------------------------
-          0            /opt/intel/oneapi/mkl/2023.0.0/lib/intel64/libmkl_rt.so   50        auto mode
-        * 1            /opt/intel/oneapi/mkl/2023.0.0/lib/intel64/libmkl_rt.so   50        manual mode
-          2            /usr/lib/x86_64-linux-gnu/blas/libblas.so.3               10        manual mode
-        
-        Press <enter> to keep the current choice[*], or type selection number:
+           Selection    Path                                                     Priority   Status
+         ------------------------------------------------------------
+           0            /opt/intel/oneapi/mkl/2023.0.0/lib/intel64/libmkl_rt.so   50        auto mode
+         * 1            /opt/intel/oneapi/mkl/2023.0.0/lib/intel64/libmkl_rt.so   50        manual mode
+           2            /usr/lib/x86_64-linux-gnu/blas/libblas.so.3               10        manual mode
+
+         Press <enter> to keep the current choice[*], or type selection number:
 
 # Setting the number of threads
 
 While the default BLAS and LAPACK libraries are single-threaded, oneMKL can make use of multiple threads. By default it uses as many threads as there are physical cores in the system. This can be problematic if a script or function makes use of explicit parallelization using, for example, the foreach package. In that case the number of threads to be used by oneMKL must be manually set to 1.
 
 1.  Open up the terminal in your VM and check if nano is installed by running `nano --version`. If it is not installed it can be installed by running `sudo apt install nano`.
+
 2.  Run `sudo nano /etc/environment`.
+
 3.  Add the following line to the bottom of the file: `MKL_NUM_THREADS=1`. The file should look like this:
 
         PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
@@ -174,23 +183,9 @@ While the default BLAS and LAPACK libraries are single-threaded, oneMKL can make
         MKL_NUM_THREADS=1
 
 4.  Press Ctrl + X followed by the Y key to save the changes and press Enter to overwrite the file.
+
 5.  Restart the VM. While oneMKL using 1 thread will not be *as* fast as allowing it to use multiple threads, it will still far outperform the default BLAS and LAPACK libraries.
 
 # Results
-The figures below show the running times for a few operations measured using microbenchmark (n = 20) and the relative speed of the oneMKL libraries compared to the default BLAS/LAPACK libraries on Windows.
-![Computational times for some operations](/assets/all_log.png)
-![Relative speed](/assets/all_relative.png)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+The figures below show the running times for a few operations measured using microbenchmark (n = 20) and the relative speed of the oneMKL libraries compared to the default BLAS/LAPACK libraries on Windows. ![Computational times for some operations](/assets/all_log.png) ![Relative speed](/assets/all_relative.png)
