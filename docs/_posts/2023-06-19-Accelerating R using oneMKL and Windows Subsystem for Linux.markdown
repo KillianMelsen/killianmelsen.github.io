@@ -82,7 +82,7 @@ As mentioned, oneMKL can be installed as part of the oneAPI Base Toolkit. Howeve
 
          echo "MKL_THREADING_LAYER=GNU" | sudo tee /etc/environment -a
 
-5.  If we now open Ubuntu RStudio (either by running `rstudio` in the terminal or by launch the RStudio (Ubuntu) application from the Windows desktop) and run `sessionInfo()` in the console we should see that we are now using the Intel oneMKL BLAS and LAPACK libraries: ![Library selection](/assets/libblas_choice.png)
+5.  If we now open Ubuntu RStudio (either by running `rstudio` in the terminal or by launch the RStudio (Ubuntu) application from the Windows desktop) and run `sessionInfo()` in the console we should see that we are now using the Intel oneMKL BLAS and LAPACK libraries: ![Library selection](/assets/sessionInfo_MKL.png)
 
 6.  Switching back between the default and oneMKL libraries is possible using the following commands:
 
@@ -92,7 +92,7 @@ As mentioned, oneMKL can be installed as part of the oneAPI Base Toolkit. Howeve
          # For the LAPACK library:
          sudo update-alternatives --config liblapack.so.3-x86_64-linux-gnu
 
-    Running these lines opens a menu where a number can be entered to select the desired library: ![oneMKL sessionInfo()](/assets/sessionInfo_MKL.png)
+    Running these lines opens a menu where a number can be entered to select the desired library: ![oneMKL sessionInfo()](/assets/libblas_choice.png)
 
 # Setting the number of threads
 
