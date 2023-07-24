@@ -14,7 +14,7 @@ The default BLAS and LAPACK libraries used by R are rather slow, meaning install
 3.  Reboot your device.
 4.  After rebooting Ubuntu will start in a Command Prompt window. Choose a username and password when asked.
 5.  Once Ubuntu has started the installed version can be checked by running `cat /etc/os-release` in the terminal.
-6.  Update and upgrade all packages by running `sudo apt update` (enter your password when prompted) followed by `sudo apt upgrade -y`.
+6.  Update and upgrade all packages by running `sudo apt update` (enter your password when prompted) followed by `sudo apt upgrade -y` and `sudo apt install build-essential`.
 
 # Installing R and RStudio
 
@@ -100,18 +100,20 @@ As mentioned, oneMKL can be installed as part of the oneAPI Base Toolkit. Howeve
 
 # Setting the number of threads
 
-While the default BLAS and LAPACK libraries are single-threaded, oneMKL can make use of multiple threads. By default it uses as many threads as there are physical cores in the system. This can be problematic if a script or function makes use of explicit parallelization using, for example, the foreach package. In that case the number of threads to be used by oneMKL must be manually set to 1.
+While the default BLAS and LAPACK libraries are single-threaded, oneMKL can make use of multiple threads. By default it seems to be able to use as many threads as there are logical cores in the system, but the actual number of threads that is used is determined dynamically. Multithreading can be problematic if a script or function makes use of explicit parallelization using, for example, the foreach package. In that case the maximum number of threads to be used by oneMKL must be manually set to 1.
 
 1.  In the Ubuntu terminal check if nano is installed by running `nano --version`. If it is not installed it can be installed by running `sudo apt install nano`.
 
-2.  Run `sudo nano /etc/environment`.
+2.  Run `sudo nano ~/.profile`.
 
-3.  Add the following line to the bottom of the file: `MKL_NUM_THREADS=1`. The file should look like this: ![Setting threads](/assets/set_threads.png)
+3.  Add the following line to the bottom of the file: `export MKL_NUM_THREADS=1`. The file should look something like this: ![Setting threads](/assets/profile.png)
 
 4.  Press **Ctrl + X** followed by the **Y** key to save the changes and press **Enter** to overwrite the file.
 
 5.  Close and reopen the Ubuntu terminal. While oneMKL using 1 thread will not be *as* fast as allowing it to use multiple threads, it will still far outperform the default BLAS and LAPACK libraries, especially if single-threaded oneMKL is combined with efficient explicit parallelization in R scripts.
 
+6.  The dynamic aspect of how many threads MKL actually uses can be disabled by similarly adding `export MKL_DYNAMIC=FALSE` to `~/.profile`.
+
 # Results
 
-The figures below show the running times for a few operations measured using microbenchmark (n = 20) and the relative speed of the oneMKL libraries compared to the default BLAS/LAPACK libraries on Windows. ![Computational times for some operations](/assets/all_log.png) ![Relative speed](/assets/all_relative.png)
+The figures below show the running times for a few operations measured using microbenchmark (n = 20, 10 threads on an Intel Core i5-13600KF) and the relative speed of the oneMKL libraries compared to the default BLAS/LAPACK libraries on Windows. ![Computational times for some operations](/assets/all_log.png) ![Relative speed](/assets/all_relative.png)
