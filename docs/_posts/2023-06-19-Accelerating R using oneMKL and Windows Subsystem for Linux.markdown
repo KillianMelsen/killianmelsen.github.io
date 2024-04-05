@@ -20,9 +20,9 @@ The default BLAS and LAPACK libraries used by R are rather slow, meaning install
 
 1.  R can be installed by following the instructions at <https://cloud.r-project.org/bin/linux/ubuntu/> under **Install R** (running the lines in the terminal).
 
-2.  Follow the instructions at <https://posit.co/download/rstudio-server/> to install RStudio Server (starting at step 3 because we already istalled R itself). RStudio Server should be started automatically after the last step.
+2.  Follow the instructions at <https://posit.co/download/rstudio-server/> to install RStudio Server (starting at step 3 because we already istalled R itself). At the top of the page and under step 1, select Debian/Ubuntu for the operating system and Debian 12/Ubuntu 22 for the server version. RStudio Server should be started automatically after the last step.
 
-3.  On your Windows desktop, open a browser and navigate to <localhost:8787>.
+3.  On your Windows desktop, open a browser and navigate to `localhost:8787`.
 
 4.  Log in using the username and password chosen in step 4 of the previous section.
 
@@ -80,7 +80,7 @@ As mentioned, oneMKL can be installed as part of the oneAPI Base Toolkit. Howeve
      echo "MKL_THREADING_LAYER=GNU" | sudo tee /etc/environment -a
     ```
 
-5.  If we now start Ubuntu RStudio Server (by running `sudo rstudio-server start` and going to <localhost:8787> in a browser) and run `sessionInfo()` in the console we should see that we are now using the Intel oneMKL BLAS and LAPACK libraries: ![Library selection](/assets/sessionInfo_MKL.png)
+5.  If we now start Ubuntu RStudio Server (by running `sudo rstudio-server start` and going to `localhost:8787` in a browser) and run `sessionInfo()` in the console we should see that we are now using the Intel oneMKL BLAS and LAPACK libraries: ![Library selection](/assets/sessionInfo_MKL.png)
 
 6.  Switching back between the default and oneMKL libraries is possible using the following commands:
 
