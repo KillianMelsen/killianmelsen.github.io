@@ -34,6 +34,8 @@ The default BLAS and LAPACK libraries used by R are rather slow, meaning install
 
 8.  In the Ubuntu terminal, run `sudo rstudio-server stop` to stop the RStudio server (it can be started again later by running `sudo rstudio-server start`).
 
+9.  Before installing Intel oneMKL we will change the session timeout value of the RStudio server so we can run long scripts without the session timing out. This can be done by running `sudo nano /etc/rstudio/rserver.conf` and adding the line `auth-timeout-minutes=6000` (or some other large number) before overwriting and closing the file.
+
 # Installing Intel oneMKL
 
 As mentioned, oneMKL can be installed as part of the oneAPI Base Toolkit. However, this toolkit is quite large at \~20 GB. We only need oneMKL and installing it as a standalone component (\~3 GB) saves a lot of space.
