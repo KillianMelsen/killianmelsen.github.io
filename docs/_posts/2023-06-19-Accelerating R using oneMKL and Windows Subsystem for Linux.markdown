@@ -102,7 +102,7 @@ While the default BLAS and LAPACK libraries are single-threaded, oneMKL can make
 
 2.  Run `sudo nano /usr/lib/R/etc/Renviron.site`.
 
-3.  Add the following line to the bottom of the file: `MKL_NUM_THREADS=1`. The file should look something like this: ![Setting threads](/assets/profile.png)
+3.  Add the following line to the bottom of the file: `MKL_NUM_THREADS=1`. The file should look something like this: ![Setting threads](/assets/Renviron.png)
 
 4.  Press **Ctrl + X** followed by the **Y** key to save the changes and press **Enter** to overwrite the file.
 
