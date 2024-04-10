@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Accelerating R using oneMKL and Windows Subsystem for Linux"
-date: 2023-06-20 17:15:32 +0200
+date: 2024-04-05 17:15:32 +0200
 categories: guide
 ---
 
@@ -111,7 +111,3 @@ While the default BLAS and LAPACK libraries are single-threaded, oneMKL can make
 5.  While oneMKL using 1 thread will not be *as* fast as allowing it to use multiple threads, it will still far outperform the default BLAS and LAPACK libraries, especially if single-threaded oneMKL is combined with efficient explicit parallelization in R scripts.
 
 6.  The dynamic aspect of how many threads MKL actually uses can be disabled by similarly adding `MKL_DYNAMIC=FALSE` to `/usr/lib/R/etc/Renviron.site`.
-
-# Results
-
-The figures below show the running times for a few operations measured using microbenchmark (n = 20, 10 threads on an Intel Core i5-13600KF) and the relative speed of the oneMKL libraries compared to the default BLAS/LAPACK libraries on Windows. ![Computational times for some operations](/assets/all_log.png) ![Relative speed](/assets/all_relative.png)
