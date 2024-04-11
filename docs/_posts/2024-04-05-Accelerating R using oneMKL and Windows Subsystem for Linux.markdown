@@ -42,7 +42,7 @@ As mentioned, oneMKL can be installed as part of the oneAPI Base Toolkit. Howeve
 
 1.  In the Ubuntu terminal, run the following lines (you might have to press **Enter** and enter your password after running the first line):
 
-    ```         
+    ```bash         
     wget -O- https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB | gpg --dearmor | sudo tee /usr/share/keyrings/oneapi-archive-keyring.gpg > /dev/null
 
     echo "deb [signed-by=/usr/share/keyrings/oneapi-archive-keyring.gpg] https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
@@ -52,7 +52,7 @@ As mentioned, oneMKL can be installed as part of the oneAPI Base Toolkit. Howeve
 
 2.  We can now look at what versions of oneMKL are available by running the following line:
 
-    ```         
+    ```bash         
     sudo -E apt-cache pkgnames intel | grep intel-oneapi-mkl-20
     ```
 
@@ -60,13 +60,13 @@ As mentioned, oneMKL can be installed as part of the oneAPI Base Toolkit. Howeve
 
 3.  To install this version we run:
 
-    ```         
+    ```bash         
     sudo apt install intel-oneapi-mkl-2024.1 -y
     ```
 
 4.  Now run the following lines (note the oneMKL version numbers in these commands):
 
-    ```         
+    ```bash         
      sudo update-alternatives --install /usr/lib/x86_64-linux-gnu/libblas.so libblas.so-x86_64-linux-gnu /opt/intel/oneapi/mkl/2024.1/lib/libmkl_rt.so 50
 
      sudo update-alternatives --install /usr/lib/x86_64-linux-gnu/libblas.so.3 libblas.so.3-x86_64-linux-gnu /opt/intel/oneapi/mkl/2024.1/lib/libmkl_rt.so 50
@@ -86,7 +86,7 @@ As mentioned, oneMKL can be installed as part of the oneAPI Base Toolkit. Howeve
 
 6.  Switching back between the default and oneMKL libraries is possible using the following commands:
 
-    ```         
+    ```bash         
      # For the BLAS library:
      sudo update-alternatives --config libblas.so.3-x86_64-linux-gnu
 

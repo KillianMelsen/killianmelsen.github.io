@@ -23,7 +23,7 @@ APIs for [Keras](https://keras.posit.co/) 3 with the [TensorFlow](https://www.te
 
 2. The instructions for installing CUDA 12.3 for WSL can be found at <https://developer.nvidia.com/cuda-12-3-2-download-archive?target_os=Linux&target_arch=x86_64&Distribution=WSL-Ubuntu&target_version=2.0&target_type=deb_network>:
 
-    ```
+    ```bash
     wget https://developer.download.nvidia.com/compute/cuda/repos/wsl-ubuntu/x86_64/cuda-keyring_1.1-1_all.deb
     sudo dpkg -i cuda-keyring_1.1-1_all.deb
     sudo apt-get update
@@ -34,7 +34,7 @@ APIs for [Keras](https://keras.posit.co/) 3 with the [TensorFlow](https://www.te
     We run the `rm` command because we need a different .deb file with the same name to install cuDNN later.
     
 3.  Run `sudo nano ~/.profile` and add the following lines to the file (note the CUDA version number):
-    ```
+    ```bash
     export PATH=/usr/local/cuda-12.3/bin:$PATH
     export LD_LIBRARY_PATH=/usr/local/cuda-12.3/lib64:$LD_LIBRARY_PATH
     ```
@@ -44,14 +44,14 @@ APIs for [Keras](https://keras.posit.co/) 3 with the [TensorFlow](https://www.te
 5.  Reopen the Ubuntu terminal and run `nvcc --version` to check whether the CUDA toolkit was correctly installed. ![nvcc](/assets/nvcc.png)
 
 6.  Now we'll install cuDNN by following the instructions at <https://docs.nvidia.com/deeplearning/cudnn/archives/cudnn-897/install-guide/index.html#package-manager-ubuntu-install>. Substitute `$distro/$arch` with `ubuntu2204/x86_64` when enabling the network repository, so run:
-    ```
+    ```bash
     wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
     sudo dpkg -i cuda-keyring_1.1-1_all.deb
     ```
     
     in the terminal, followed by:
     
-    ```
+    ```bash
     sudo apt update
     sudo apt install libcudnn8 libcudnn8-dev libcudnn8-samples
     rm cuda-keyring_1.1-1_all.deb
