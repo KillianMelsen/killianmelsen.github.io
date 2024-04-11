@@ -39,7 +39,7 @@ minima:
   social_links:
     - { platform: github,  user_url: "https://github.com/KillianMelsen", title: Killian Melsen on github }
     - { platform: linkedin, user_url: "https://www.linkedin.com/in/killianmelsen/" }
-    - { platform: googlescholar3, user_url: "https://scholar.google.com/citations?user=pvSP7FsAAAAJ&hl=en"}
+    - { platform: googlescholar, user_url: "https://scholar.google.com/citations?user=pvSP7FsAAAAJ&hl=en"}
   
 plugins:
   - jekyll-feed
