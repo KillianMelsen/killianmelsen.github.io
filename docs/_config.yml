@@ -30,9 +30,11 @@ github_username:  KillianMelsen
 linkedin_username: killianmelsen
 
 # Build settings
-theme: minima
+#theme: minima
+remote_theme: jekyll/minima
 minima:
   skin: dark
+  #skin: auto
 plugins:
   - jekyll-feed
 future: true
