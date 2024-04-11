@@ -33,7 +33,8 @@ linkedin_username: killianmelsen
 #theme: minima
 remote_theme: jekyll/minima
 minima:
-  skin: dark
+  skin: classic
+  #skin: dark
   #skin: auto
   social_links:
     - { platform: github,  user_url: "https://github.com/KillianMelsen" }
