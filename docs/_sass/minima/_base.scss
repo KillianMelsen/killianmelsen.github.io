@@ -129,6 +129,7 @@ a {
  * Blockquotes
  */
 $grey-color: #828282 !default;
+$grey-color-light: lighten($grey-color, 40%) !default;
 blockquote {
   color: $grey-color;
   border-left: 4px solid $grey-color-light;
