@@ -26,8 +26,8 @@ title: Killian Melsen
 #  Google search results) and in your feed.xml site description.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
-author:
-  name: Killian Melsen
+#author:
+  #name: Killian Melsen
 
 # Build settings
 #theme: minima
