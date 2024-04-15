@@ -1,6 +1,6 @@
 <li>{% assign entry = include.item %}
   <a {% unless entry.platform == 'rss' %}rel="me" {% endunless %}href="{{ entry.user_url }}" target="_blank" title="{{ entry.title | default: entry.platform }}">
-    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" >
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32">
       <use xlink:href="{{ '/assets/test.svg#test2' | relative_url }}"></use>
     </svg>
   </a>
