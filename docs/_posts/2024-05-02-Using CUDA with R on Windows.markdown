@@ -17,7 +17,7 @@ This guide assumes a working Windows R and RStudio installation. It involves cre
 
 1.  Launch Visual Studio 2022. Go through any initial setup steps if required.
 2.  Click create a new project. At this point the CUDA 12.4 Runtime template should be visible, indicating that Visual Studio integration was correctly installed. Do not select this template, however.
-3.  Search for and select the **Windows Desktop Wizard** template. Click **Next**. ![template](/assets/CUDA_assets/WDW_template.png)
+3.  Search for and select the **Windows Desktop Wizard** template. Click **Next**. ![template](/assets/CUDA_assets/WDW_template.PNG)
 4.  Choose a suitable project name. For this example we will use `RCUDA`. Leave the other settings on their default values and click **Create**.
 5.  In the window that opens, select **Dynamic Link Library (.dll)** under Application type. Also check the **Empty project** box. Click **OK**.
 
@@ -312,7 +312,7 @@ This guide assumes a working Windows R and RStudio installation. It involves cre
     The numbers refer to the CUDA compute capability of GPU devices, formatted as `MajorMinor`. When compiling the CUDA code, it is important to set this option to a compute capability that is compatible with the device that the code will be run on. The RTX 3080 or RTX A500 GPUs have compute capability 8.6, for example, but a Quadro M1000M only has compute capability 5.0. Compute capabilities can be found on [techpowerup].com(https://www.techpowerup.com/gpu-specs/rtx-a500.c3989) or the [NVIDIA developer website](https://developer.nvidia.com/cuda-gpus). Compute capabilities are related to the physical architecture of the GPU/streaming multiprocessors (SM). As a result, CUDA code compiled for e.g. 8.6 will usually not run on devices with a lower compute capability.
 
     I am using a GPU with compute capability 8.6, so I change the **Code Generation** option to `compute_86,sm_86` and click **OK**.
-3.  Click **Build** in the top Visual Studio toolbar, followed by **Build Solution**. The output panel will indicate whether building was succesful and that the `RCUDA.dll` file was created. We can close Visual Studio at this point. ![build](/assets/CUDA_assets/build.png)
+3.  Click **Build** in the top Visual Studio toolbar, followed by **Build Solution**. The output panel will indicate whether building was succesful and that the `RCUDA.dll` file was created. We can close Visual Studio at this point. ![build](/assets/CUDA_assets/build.PNG)
 
 # R package
 
@@ -436,7 +436,7 @@ This guide assumes a working Windows R and RStudio installation. It involves cre
 
 # Examples
 
-1.  Device properties can be looked at by running `getDeviceProperties()`. ![properties](/assets/CUDA_assets/deviceprops.png)
+1.  Device properties can be looked at by running `getDeviceProperties()`. ![properties](/assets/CUDA_assets/deviceprops.PNG)
 2.  We can run the following code to get an idea of the differences between using the CPU and GPU:
     ```r
     # Libraries:
@@ -455,8 +455,8 @@ This guide assumes a working Windows R and RStudio installation. It involves cre
                 GPU64 <- matMul(A, B, precision = "FP64"),
                 times = 5)
     ```
-    ![benchmark](/assets/CUDA_assets/benchmark_6400.png)
-3.  Also note that only using double precision gives a result matrix that is identical to using the CPU. ![identical](/assets/CUDA_assets/benchmark_6400.png)
+    ![benchmark](/assets/CUDA_assets/benchmark_6400.PNG)
+3.  Also note that only using double precision gives a result matrix that is identical to using the CPU. ![identical](/assets/CUDA_assets/benchmark_6400.PNG)
 
 
 
