@@ -36,7 +36,7 @@ This guide assumes a working Windows R and RStudio installation. It involves cre
 1.  Copy the CUDA source code below into the `RCUDA_source.cu` file.
 
     The code contains a number of things. It starts with including some required header files before defining the function `getDeviceProperties()` that returns some GPU device properties. It then defines a fixed CUDA thread block size and structs for single (FP32) and double (FP64) precision matrices. It then specifies two CUDA kernels (device code) for simple FP32 and FP64 matrix multiplication on the GPU that does not use shared memory (see the [CUDA C++ Programming Guide](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html), section [3.2.4 Shared memory](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#shared-memory)). We then specify two host code functions for the two precisions. These functions will be called from an R wrapper function and take care of copying the input matrices to the GPU (device), allocating GPU memory for the resulting matrix, and copying the resulting matrix back to the host (CPU) which allows R to access it.
-    ```Cuda
+    ```CPP
     // Header files ========================================================================
     // Basic header file
     #include <stdlib.h>
