@@ -36,7 +36,7 @@ This guide assumes a working Windows R and RStudio installation. It involves cre
 1.  Copy the CUDA source code below into the `RCUDA_source.cu` file.
 
     The code contains a number of things. It starts with including some required header files before defining the function `getDeviceProperties()` that returns some GPU device properties. It then defines a fixed CUDA thread block size and structs for single (FP32) and double (FP64) precision matrices. It then specifies two CUDA kernels (device code) for simple FP32 and FP64 matrix multiplication on the GPU that does not use shared memory (see the [CUDA C++ Programming Guide](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html), section [3.2.4 Shared memory](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#shared-memory)). We then specify two host code functions for the two precisions. These functions will be called from an R wrapper function and take care of copying the input matrices to the GPU (device), allocating GPU memory for the resulting matrix, and copying the resulting matrix back to the host (CPU) which allows R to access it.
-    ```cpp
+    ```Cuda
     // Header files ========================================================================
     // Basic header file
     #include <stdlib.h>
@@ -320,7 +320,7 @@ This guide assumes a working Windows R and RStudio installation. It involves cre
 2.  Create an `inst/lib/` directory within the project directory. Copy the `.dll` file from the location where it was generated to this directory. The `.dll` files are usually created in `C:/Users/<Username>/source/repos/<VS2022 project name>/x64/debug/`.
 2.  Load the devtools package and create an R file using `use_r("getDeviceProperties")`. This will be the R wrapper function for the identically named CUDA function.
 3.  Open the created R file and copy the following code into it:
-    ```r
+    ```R
     #' getDeviceProperties
     #'
     #' Returns the CUDA device properties of the specified device.
@@ -367,7 +367,7 @@ This guide assumes a working Windows R and RStudio installation. It involves cre
 5.  Create another R file using `use_r("matMul")` and code below into it.
 
     Note that R stores matrices in column-major order. C++ and CUDA use row-major storage. When converting the R matrices to vectors we thus transpose them first.
-    ```r
+    ```R
     #' matMul
     #'
     #' Multiplies two matrices on the GPU without using shared memory. Dimensions of
@@ -439,7 +439,7 @@ This guide assumes a working Windows R and RStudio installation. It involves cre
 
 1.  Device properties can be looked at by running `getDeviceProperties()`. ![properties](/assets/CUDA_assets/deviceprops.PNG)
 2.  We can run the following code to get an idea of the differences between using the CPU and GPU:
-    ```r
+    ```R
     # Libraries:
     library(microbenchmark)
     library(rCUDA)
