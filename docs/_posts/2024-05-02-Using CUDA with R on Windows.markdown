@@ -25,7 +25,7 @@ This guide assumes a working Windows R and RStudio installation. It involves cre
 
 1.  In the solution explorer, right-click the project name and go to **Build Dependencies** > **Build Customizations...**. Check the box for the **CUDA 12.4(.target, .props)** Build Customization File. Click **OK**.
 2.  In the solution explorer, right-click the project name again and open **Properties**.
-3.  Go to the **Linker** menu and **Input** sub-menu. If required, additional CUDA dependencies (such as `cufft.h`) can be added on the **Additional Dependencies** line. For this example, we only need the CUDA runtime libraries which are already present. Click **Cancel**.
+3.  Go to the **Linker** menu and **Input** sub-menu. If required, additional CUDA dependencies (such as `cufft.lib`) can be added on the **Additional Dependencies** line. For this example, we only need the CUDA runtime libraries which are already present. Click **Cancel**.
 4.  In the solution explorer, right-click **source files** and go to **Add** > **New Item...**. If the templates are not visible, click **Show All Templates**. Make sure the **C++ File (.cpp)** template is selected.
 5.  Enter a suitable filename at the bottom of the window, followed by the `.cu` file extension. For example, `RCUDA_source.cu`. The default location is fine. Click **Add**.
 6.  Right-click the created source file in the solution explorer and open **Properties**. Make sure the **Item Type** is set to **CUDA C/C++**. Close the **Properties** window.
@@ -37,7 +37,7 @@ This guide assumes a working Windows R and RStudio installation. It involves cre
 
     The code contains a number of things. It starts with including some required header files before defining the function `getDeviceProperties()` that returns some GPU device properties. It then defines a fixed CUDA thread block size and structs for single (FP32) and double (FP64) precision matrices. It then specifies two CUDA kernels (device code) for simple FP32 and FP64 matrix multiplication on the GPU that does not use shared memory (see the [CUDA C++ Programming Guide](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html), section [3.2.4 Shared memory](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#shared-memory)). We then specify two host code functions for the two precisions. These functions will be called from an R wrapper function and take care of copying the input matrices to the GPU (device), allocating GPU memory for the resulting matrix, and copying the resulting matrix back to the host (CPU) which allows R to access it.
     ```cpp
-    // Header files ============================================================================================================
+    // Header files ==========================================================================
     // Basic header file
     #include <stdlib.h>
     #include <string.h>
@@ -46,7 +46,7 @@ This guide assumes a working Windows R and RStudio installation. It involves cre
     #include <cuda_runtime.h>
     #include "device_launch_parameters.h"
 
-    // Device properties function ==============================================================================================
+    // Device properties function ============================================================
     extern "C" __declspec(dllexport)
     void getDeviceProperties(int* id, char* DeviceName, int* integr, int* mjr, int* mnr)
     {
@@ -63,7 +63,7 @@ This guide assumes a working Windows R and RStudio installation. It involves cre
         *mnr = prop.minor;
     }
 
-    // Definitions =============================================================================================================
+    // Definitions ===========================================================================
     // Constant thread block size
     #define BLOCK_SIZE 16
 
@@ -84,7 +84,7 @@ This guide assumes a working Windows R and RStudio installation. It involves cre
         double* elements;
     } Matrix64;
 
-    // Device code =============================================================================================================
+    // Device code ===========================================================================
 
     // Simple FP32 matrix multiplication kernel
     __global__ void SimpleMatMulKernelFP32(Matrix32 A, Matrix32 B, Matrix32 C)
@@ -116,7 +116,7 @@ This guide assumes a working Windows R and RStudio installation. It involves cre
         C.elements[row * C.width + col] = Cvalue;
     }
 
-    // Host code ===============================================================================================================
+    // Host code =============================================================================
 
     // FP32 Matrix multiplication host code
     // Matrix dimensions must be multiple of 16 due to fixed block size
@@ -309,7 +309,7 @@ This guide assumes a working Windows R and RStudio installation. It involves cre
 2.  Right-click the project name and open the **Properties** window. Go the the **CUDA C/C++** menu and **Device** sub-menu.
 3.  Look for the **Code Generation** option which might be set to something like `compute_52,sm_52`.
 
-    The numbers refer to the CUDA compute capability of GPU devices, formatted as `MajorMinor`. When compiling the CUDA code, it is important to set this option to a compute capability that is compatible with the device that the code will be run on. The RTX 3080 or RTX A500 GPUs have compute capability 8.6, for example, but a Quadro M1000M only has compute capability 5.0. Compute capabilities can be found on [techpowerup].com(https://www.techpowerup.com/gpu-specs/rtx-a500.c3989) or the [NVIDIA developer website](https://developer.nvidia.com/cuda-gpus). Compute capabilities are related to the physical architecture of the GPU/streaming multiprocessors (SM). As a result, CUDA code compiled for e.g. 8.6 will usually not run on devices with a lower compute capability.
+    The numbers refer to the CUDA compute capability of GPU devices, formatted as `MajorMinor`. When compiling the CUDA code, it is important to set this option to a compute capability that is compatible with the device that the code will be run on. The RTX 3080 or RTX A500 GPUs have compute capability 8.6, for example, but a Quadro M1000M only has compute capability 5.0. Compute capabilities can be found on [techpowerup.com](https://www.techpowerup.com/gpu-specs/rtx-a500.c3989) or the [NVIDIA developer website](https://developer.nvidia.com/cuda-gpus). Compute capabilities are related to the physical architecture of the GPU/streaming multiprocessors (SM). As a result, CUDA code compiled for e.g. 8.6 will usually not run on devices with a lower compute capability.
 
     I am using a GPU with compute capability 8.6, so I change the **Code Generation** option to `compute_86,sm_86` and click **OK**.
 3.  Click **Build** in the top Visual Studio toolbar, followed by **Build Solution**. The output panel will indicate whether building was succesful and that the `RCUDA.dll` file was created. We can close Visual Studio at this point. ![build](/assets/CUDA_assets/build.PNG)
@@ -363,7 +363,7 @@ This guide assumes a working Windows R and RStudio installation. It involves cre
     }
     ```
 4.  Save and close the R file followed by running `document()` in the RStudio console to update the package documentation.
-5.  Create another R file using `use_r(matMul)` and code below into it.
+5.  Create another R file using `use_r("matMul")` and code below into it.
 
     Note that R stores matrices in column-major order. C++ and CUDA use row-major storage. When converting the R matrices to vectors we thus transpose them first.
     ```r
