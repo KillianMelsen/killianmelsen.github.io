@@ -37,7 +37,7 @@ This guide assumes a working Windows R and RStudio installation. It involves cre
 
     The code contains a number of things. It starts with including some required header files before defining the function `getDeviceProperties()` that returns some GPU device properties. It then defines a fixed CUDA thread block size and structs for single (FP32) and double (FP64) precision matrices. It then specifies two CUDA kernels (device code) for simple FP32 and FP64 matrix multiplication on the GPU that does not use shared memory (see the [CUDA C++ Programming Guide](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html), section [3.2.4 Shared memory](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#shared-memory)). We then specify two host code functions for the two precisions. These functions will be called from an R wrapper function and take care of copying the input matrices to the GPU (device), allocating GPU memory for the resulting matrix, and copying the resulting matrix back to the host (CPU) which allows R to access it.
     ```cpp
-    // Header files ==========================================================================
+    // Header files ========================================================================
     // Basic header file
     #include <stdlib.h>
     #include <string.h>
@@ -46,7 +46,7 @@ This guide assumes a working Windows R and RStudio installation. It involves cre
     #include <cuda_runtime.h>
     #include "device_launch_parameters.h"
 
-    // Device properties function ============================================================
+    // Device properties function ==========================================================
     extern "C" __declspec(dllexport)
     void getDeviceProperties(int* id, char* DeviceName, int* integr, int* mjr, int* mnr)
     {
@@ -63,7 +63,7 @@ This guide assumes a working Windows R and RStudio installation. It involves cre
         *mnr = prop.minor;
     }
 
-    // Definitions ===========================================================================
+    // Definitions =========================================================================
     // Constant thread block size
     #define BLOCK_SIZE 16
 
@@ -84,7 +84,7 @@ This guide assumes a working Windows R and RStudio installation. It involves cre
         double* elements;
     } Matrix64;
 
-    // Device code ===========================================================================
+    // Device code =========================================================================
 
     // Simple FP32 matrix multiplication kernel
     __global__ void SimpleMatMulKernelFP32(Matrix32 A, Matrix32 B, Matrix32 C)
@@ -116,7 +116,7 @@ This guide assumes a working Windows R and RStudio installation. It involves cre
         C.elements[row * C.width + col] = Cvalue;
     }
 
-    // Host code =============================================================================
+    // Host code ===========================================================================
 
     // FP32 Matrix multiplication host code
     // Matrix dimensions must be multiple of 16 due to fixed block size
@@ -325,7 +325,8 @@ This guide assumes a working Windows R and RStudio installation. It involves cre
     #'
     #' Returns the CUDA device properties of the specified device.
     #'
-    #' @param id ID of the device to return the properties for. Defaults to 0 for the first GPU.
+    #' @param id ID of the device to return the properties for. Defaults to 0 for the
+    #' first GPU.
     #'
     #' @export
     #'
@@ -369,8 +370,8 @@ This guide assumes a working Windows R and RStudio installation. It involves cre
     ```r
     #' matMul
     #'
-    #' Multiplies two matrices on the GPU without using shared memory. Dimensions of matrices must
-    #' be multiples of 16.
+    #' Multiplies two matrices on the GPU without using shared memory. Dimensions of
+    #' matrices must be multiples of 16.
     #'
     #' @param A Left matrix
     #' @param B Right matrix
