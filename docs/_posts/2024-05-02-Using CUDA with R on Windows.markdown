@@ -332,35 +332,35 @@ This guide assumes a working Windows R and RStudio installation. It involves cre
     #'
     getDeviceProperties <- function(id = 0) {
 
-    stopifnot("id must be an integer!" = id %% 1 == 0)
+        stopifnot("id must be an integer!" = id %% 1 == 0)
 
-    if(!is.loaded("getDeviceProperties")) {
-        dyn.load(system.file("lib/RCUDA.dll", package = "rCUDA"))
-    }
+        if(!is.loaded("getDeviceProperties")) {
+            dyn.load(system.file("lib/RCUDA.dll", package = "rCUDA"))
+        }
 
-    rst <- .C("getDeviceProperties",
-                id = as.integer(id),
-                DeviceName = raw(length = 256),
-                integr = integer(length = 1),
-                mjr = integer(length = 1),
-                mnr = integer(length = 1),
-                PACKAGE = "RCUDA")
+        rst <- .C("getDeviceProperties",
+                    id = as.integer(id),
+                    DeviceName = raw(length = 256),
+                    integr = integer(length = 1),
+                    mjr = integer(length = 1),
+                    mnr = integer(length = 1),
+                    PACKAGE = "RCUDA")
 
-    rst$DeviceName <- rawToChar(rst$DeviceName)
+        rst$DeviceName <- rawToChar(rst$DeviceName)
 
-    txt <- c("Found CUDA capable device.\n",
-            "Device ID:\t\t%s\n",
-            "Device name:\t\t%s\n",
-            "Integraded device:\t%s\n",
-            "Compute capability:\t%s\n")
+        txt <- c("Found CUDA capable device.\n",
+                "Device ID:\t\t%s\n",
+                "Device name:\t\t%s\n",
+                "Integraded device:\t%s\n",
+                "Compute capability:\t%s\n")
 
-    msg <- sprintf(paste(txt, collapse = ""),
-                    rst$id,
-                    rst$DeviceName,
-                    as.logical(rst$integr),
-                    sprintf("%s.%s", rst$mjr, rst$mnr))
+        msg <- sprintf(paste(txt, collapse = ""),
+                        rst$id,
+                        rst$DeviceName,
+                        as.logical(rst$integr),
+                        sprintf("%s.%s", rst$mjr, rst$mnr))
 
-    cat(msg)
+        cat(msg)
     }
     ```
 4.  Save and close the R file followed by running `document()` in the RStudio console to update the package documentation.
@@ -382,54 +382,56 @@ This guide assumes a working Windows R and RStudio installation. It involves cre
     #'
     matMul <- function(A, B, precision = "FP32") {
 
-    stopifnot("nrow(A) must be a multiple of 16!" = nrow(A) %% 16 == 0,
-                "ncol(A) must be a multiple of 16!" = ncol(A) %% 16 == 0,
-                "nrow(B) must be a multiple of 16!" = nrow(B) %% 16 == 0,
-                "ncol(B) must be a multiple of 16!" = ncol(B) %% 16 == 0,
-                "The matrices A and B are not conformable!" = ncol(A) == nrow(B),
-                "Precision must be either 'FP32' or 'FP64'" = precision %in% c("FP32", "FP64"))
+        stopifnot(
+        "nrow(A) must be a multiple of 16!" = nrow(A) %% 16 == 0,
+        "ncol(A) must be a multiple of 16!" = ncol(A) %% 16 == 0,
+        "nrow(B) must be a multiple of 16!" = nrow(B) %% 16 == 0,
+        "ncol(B) must be a multiple of 16!" = ncol(B) %% 16 == 0,
+        "The matrices A and B are not conformable!" = ncol(A) == nrow(B),
+        "Precision must be either 'FP32' or 'FP64'" = precision %in% c("FP32", "FP64")
+        )
 
-    L <- nrow(A);
-    I <- ncol(A);
-    R <- ncol(B)
+        L <- nrow(A);
+        I <- ncol(A);
+        R <- ncol(B)
 
-    if (precision == "FP32") {
-        if(!is.loaded("SimpleMatMulFP32")) {
-        dyn.load(system.file("lib/RCUDA.dll", package = "rCUDA"))
+        if (precision == "FP32") {
+            if(!is.loaded("SimpleMatMulFP32")) {
+            dyn.load(system.file("lib/RCUDA.dll", package = "rCUDA"))
+            }
+
+            rst <- .C("SimpleMatMulFP32",
+                    A = as.single(t(A)),
+                    B = as.single(t(B)),
+                    C = single(L * R),
+                    L = as.integer(L),
+                    I = as.integer(I),
+                    R = as.integer(R),
+                    msg = as.integer(0),
+                    PACKAGE = "RCUDA")
+
+        } else if (precision == "FP64") {
+            if(!is.loaded("SimpleMatMulFP64")) {
+            dyn.load(system.file("lib/RCUDA.dll", package = "rCUDA"))
+            }
+
+            rst <- .C("SimpleMatMulFP64",
+                    A = as.double(t(A)),
+                    B = as.double(t(B)),
+                    C = double(L * R),
+                    L = as.integer(L),
+                    I = as.integer(I),
+                    R = as.integer(R),
+                    msg = as.integer(0),
+                    PACKAGE = "RCUDA")
+
         }
 
-        rst <- .C("SimpleMatMulFP32",
-                A = as.single(t(A)),
-                B = as.single(t(B)),
-                C = single(L * R),
-                L = as.integer(L),
-                I = as.integer(I),
-                R = as.integer(R),
-                msg = as.integer(0),
-                PACKAGE = "RCUDA")
-
-    } else if (precision == "FP64") {
-        if(!is.loaded("SimpleMatMulFP64")) {
-        dyn.load(system.file("lib/RCUDA.dll", package = "rCUDA"))
+        if (rst$msg != 0) {
+            stop(sprintf("STOPPED: CUDA error code: %s", rst$msg))
+        } else {
+            return(matrix(rst$C, nrow = L, byrow = TRUE))
         }
-
-        rst <- .C("SimpleMatMulFP64",
-                A = as.double(t(A)),
-                B = as.double(t(B)),
-                C = double(L * R),
-                L = as.integer(L),
-                I = as.integer(I),
-                R = as.integer(R),
-                msg = as.integer(0),
-                PACKAGE = "RCUDA")
-
-    }
-
-    if (rst$msg != 0) {
-        stop(sprintf("STOPPED: CUDA error code: %s", rst$msg))
-    } else {
-        return(matrix(rst$C, nrow = L, byrow = TRUE))
-    }
     }
     ```
 6.  Save and close the R file followed by running `document()`.
