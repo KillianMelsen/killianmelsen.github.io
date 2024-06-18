@@ -459,7 +459,7 @@ This guide assumes a working Windows R and RStudio installation. It involves cre
                 times = 5)
     ```
     ![benchmark](/assets/CUDA_assets/benchmark_6400.PNG)
-3.  Also note that only using double precision gives a result matrix that is identical to using the CPU. ![identical](/assets/CUDA_assets/benchmark_6400.PNG)
+3.  Also note that only using double precision gives a result matrix that is identical to using the CPU. ![identical](/assets/CUDA_assets/identical.PNG)
 
 
 
