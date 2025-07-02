@@ -45,7 +45,8 @@ minima:
 plugins:
   - jekyll-feed
   - jekyll-remote-theme
-future: true
+future: false
+timezone: Europe/Amsterdam
 
 # Exclude from processing.
 # The following items will not be processed, by default.
