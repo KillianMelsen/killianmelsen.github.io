@@ -413,7 +413,7 @@ $$
 The matrix $\mathbf{W} \in \mathbb{R}^{w \times q}$ containing values of $w$ environmental covariables for $q$ environments is row-wise centered and scaled.
 This type of non-linear kernel is often referred to as a Gaussian kernel.
 
-<img align="right", width="400", src="docs/assets/nonlinear.png">
+<img align="right", width="400", src="https://github.com/KillianMelsen/killianmelsen.github.io/blob/561dc8dd642bc544d1af75133655f9c17109ee08/docs/assets/nonlinear.png">
 The graph on the right shows the effect of different bandwidth values on the correlations between environments for different squared Euclidian distances.
 Note that using a non-linear (Gaussian) kernel, only positive correlations between environments can be modeled.
 
