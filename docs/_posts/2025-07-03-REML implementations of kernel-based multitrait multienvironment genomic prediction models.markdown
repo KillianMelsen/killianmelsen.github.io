@@ -6,7 +6,8 @@ categories: guide
 ---
 # Introduction
 ## Linear mixed models for G $\times$ E $\times$ M data
-Suppose we have multi-trait genotype by environment (G $\times$ E) or genotype by environment by management (G $\times$ E $\times$ M) data from a multi-environment trial (MET) breeding program:\
+Suppose we have multi-trait genotype by environment (G $\times$ E) or genotype by environment by management (G $\times$ E $\times$ M) data from a multi-environment trial (MET) breeding program:
+
 $$\mathbf{y} = \begin{bmatrix}
     y_{111} \\
     y_{112} \\
