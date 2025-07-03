@@ -10,34 +10,34 @@ Test published at 09.55 on 2025-07-03, built at 10:00
 # Introduction
 ## Linear mixed models for G $\times$ E $\times$ M data
 Suppose we have multi-trait genotype by environment (G $\times$ E) or genotype by environment by management (G $\times$ E $\times$ M) data from a multi-environment trial (MET) breeding program:
-$$
+```math
 \mathbf{y} = \begin{bmatrix}
     y_{111} \\
     y_{112} \\
     \vdots \\
     y_{pqr} \\
 \end{bmatrix},
-$$
+```
 where $r$ genotypes are nested within $q$ environments, which are themselves nested within $p$ traits or managements.
 Asuming we have BLUEs from first stage analyses and thus a single phenotypic value for every G $\times$ E $\times$ M combination, we have $p \times q \times r = n$ records.
 We can model this data using a linear mixed model of the following form:
-$$
+```math
 \mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \mathbf{Zu} + \boldsymbol{\epsilon},
-$$
+```
 where $\mathbf{X} \in \mathbb{R}^{n \times pq}$ is a design matrix for the fixed effects and $\boldsymbol{\beta}$ is the $pq \times 1$ vector containing the estimates of these fixed effects (means of every E $\times$ M combination).
 The $n $\times$ 1$ vector $\boldsymbol{\epsilon}$ contains the residuals.
 The design matrix $\mathbf{Z}$ links records to the BLUPs for all G $\times$ E $\times$ M combinations in $\mathbf{u}$.
 Note that if we have $n$ records and they are ordered correctly, $\mathbf{Z} = \mathbf{I}_n$.
 The random vector $\mathbf{u}$ follows a multivariate normal distribution:
-$$
+```math
 \mathbf{u} \sim \mathcal{N}\left(\mathbf{0}, \boldsymbol{\Sigma}\right),
-$$
+```
 where $\boldsymbol{\Sigma}$ is the covariance matrix of $\mathbf{u}$.
 It is the modeling of this covariance matrix that we are primarily interested in.
 For G $\times$ E $\times$ M data we typically assume that $\boldsymbol{\Sigma}$ is composed of kronecker products of three smaller covariance matrices, one for each of the three factors genotype, environment, and management:
-$$
+```math
 \boldsymbol{\Sigma} = \boldsymbol{\Sigma}_{M} \otimes \boldsymbol{\Sigma}_{E} \otimes \boldsymbol{\Sigma}_{G}.
-$$
+```
 The matrix $\boldsymbol{\Sigma}_{G}$ is easy to model; we can use the genomic kinship matrix $\mathbf{K}$ or pedigree-based relationship matrix $\mathbf{A}$.
 We will assume that $\boldsymbol{\Sigma}_{G} = \mathbf{K}$ from here on.
 The matrices $\boldsymbol{\Sigma}_{M}$ and $\boldsymbol{\Sigma}_{E}$ are trickier.
@@ -49,9 +49,9 @@ In that case, a factor analytic (FA) structure is a popular choice.
 FA structures can still be problematic, however.
 Practically speaking, the model with the double kronecker product between an unstructured matrix for M, an FA matrix for E, and the kinship for G is very hard to fit.
 A solution that is often used is combining M and E into a new factor that is modeled using a single covariance matrix:
-$$
+```math
 \mathbf{u} \sim \mathcal{N}\left(\mathbf{0}, \boldsymbol{\Sigma}_{ME} \otimes \mathbf{K}\right),
-$$
+```
 where an FA structure is used for $\boldsymbol{\Sigma}_{ME}$.
 While this works better, estimation of $\boldsymbol{\Sigma}_{ME}$ can still be challenging if there is a large number of environments or if not all genotypes are present in all environments due to an MET design called sparse testing (see [this paper](https://doi.org/10.1534/g3.120.401349) for some information on sparse testing).
 
@@ -86,20 +86,20 @@ See the end of this page for more information.
 # Linear kernels
 
 The linear kernels are computed similarly to how a genomic relationship matrix is obtained:
-$$
+```math
 \mathbf{EC} = \dfrac{\mathbf{W}^\top\mathbf{W}}{w-1},
-$$
+```
 where $\mathbf{W}$ is a column-wise centered and scaled $w \times q$ matrix containing $w$ environmental covariables for $q$ environments.
 Simply put, a linear kernel is a correlation matrix of environments, based on environmental covariables.
 The kernel $\mathbf{EC}$ can then be combined with a single variance for each management or trait, or unique variance for all environments within a given management or trait.
 
 ## Single variance linear kernel (svlk)
 The single variance linear kernel assumes the following distribution for $\mathbf{u}$:
-$$
+```math
 \mathbf{u} \sim \mathcal{N}\left(\mathbf{0}, \boldsymbol{\Sigma}_{M} \otimes \mathbf{EC} \otimes \mathbf{K}\right),
-$$
+```
 where $\mathbf{EC}$ is the linear kernel described earlier. The covariance matrix $\boldsymbol{\Sigma}_{M}$ is unstructured and estimated like how ASReml-R would estimate a covariance matrix using `corgh()`. As a simple illustration, consider the case of two managements and two environments:
-$$
+```math
 \begin{split}
 			\boldsymbol{\Sigma}_M \otimes \mathbf{EC} &= \begin{bmatrix}
 				v_1 & \sqrt{v_1}\sqrt{v_2}\rho_{12} \\[5pt]
@@ -116,15 +116,15 @@ $$
 				\sqrt{v_1}\sqrt{v_2}\rho_{12} \mathbf{EC}_{12} & \sqrt{v_1}\sqrt{v_2}\rho_{12} \mathbf{EC}_{22} & v_2\mathbf{EC}_{12} & v_2\mathbf{EC}_{22}
 			\end{bmatrix}.
 			\end{split}
-$$
+```
 The parameters to be estimated in the above example are:
-$$
+```math
 \boldsymbol{\kappa} = \begin{bmatrix}
     v_1, v_2, \rho_{12}
 \end{bmatrix}.
-$$
+```
 To estimate these parameters we need the partial derivatives of $\boldsymbol{\Sigma}_M \otimes \mathbf{EC}$ with respect to each parameter:
-$$
+```math
 \begin{split}
 \dfrac{\partial \left(\boldsymbol{\Sigma}_M \otimes \mathbf{EC}\right)}{\partial v_1} &= \begin{bmatrix}
 				\mathbf{EC}_{11} & \mathbf{EC}_{12} & \dfrac{0.5\sqrt{v_2}\rho_{12}\mathbf{EC}_{11}}{\sqrt{v_1}} & \dfrac{0.5\sqrt{v_2}\rho_{12}\mathbf{EC}_{12}}{\sqrt{v_1}} \\[10pt]
@@ -147,7 +147,7 @@ $$
 				\sqrt{v_1}\sqrt{v_2}\mathbf{EC}_{12} & \sqrt{v_1}\sqrt{v_2}\mathbf{EC}_{22} & 0 & 0
 			\end{bmatrix}.
 \end{split}
-$$
+```
 Note that this readily generalizes to any number of managements or environments.
 The R function below automatically computes the covariance matrix $\boldsymbol{\Sigma}_M \otimes \mathbf{EC}$ and its partial derivatives:
 ```R
@@ -218,13 +218,13 @@ For example, the first variance component will correspond to the variance for al
 
 ## Multiple variance linear kernel (mvlk)
 The multiple variance linear kernel assumes the following distribution for $\mathbf{u}$:
-$$
+```math
 \mathbf{u} \sim \mathcal{N}\left(\mathbf{0}, \mathbf{s}\mathbf{s}^\top \circ \left(\mathbf{C}_{M} \otimes \mathbf{EC}\right) \otimes \mathbf{K}\right),
-$$
+```
 where $\mathbf{EC}$ is the linear kernel described earlier. The correlation matrix $\mathbf{C}_{M}$ is unstructured and estimated like how ASReml-R would estimate a correlation matrix using `corg()`.
 The vector $\mathbf{s}$ contains the standard deviations for each E $\times$ M combination.
 As a simple illustration, consider again the case of two managements and two environments:
-$$
+```math
 \begin{split}
 				\mathbf{s}\mathbf{s}^\top \circ \left(\mathbf{C}_M \otimes \mathbf{EC}\right) &= \begin{bmatrix}
                     \sqrt{v_1} \\[5pt]
@@ -260,15 +260,15 @@ $$
 					\sqrt{v_1}\sqrt{v_4}\rho_{12} \mathbf{EC}_{12} & \sqrt{v_2}\sqrt{v_4}\rho_{12} \mathbf{EC}_{22} & \sqrt{v_3}\sqrt{v_4}\mathbf{EC}_{12} & v_4\mathbf{EC}_{22}
 				\end{bmatrix}.
 			\end{split}
-$$
+```
 The parameters to be estimated in the above example are:
-$$
+```math
 \boldsymbol{\kappa} = \begin{bmatrix}
     v_1, v_2, v_3, v_4, \rho_{12}
 \end{bmatrix}.
-$$
+```
 To estimate these parameters we need the partial derivatives of $\mathbf{s}\mathbf{s}^\top \circ \left(\mathbf{C}_M \otimes \mathbf{EC}\right)$ with respect to each parameter:
-$$
+```math
 \begin{split}
 \dfrac{\partial \left(\mathbf{s}\mathbf{s}^\top \circ \left(\mathbf{C}_M \otimes \mathbf{EC}\right)\right)}{\partial v_1} &= \begin{bmatrix}
             \mathbf{EC}_{11} & \dfrac{0.5\sqrt{v_2}\mathbf{EC}_{12}}{\sqrt{v_1}} & \dfrac{0.5\sqrt{v_3}\rho_{12}\mathbf{EC}_{11}}{\sqrt{v_1}} & \dfrac{0.5\sqrt{v_4}\rho_{12}\mathbf{EC}_{12}}{\sqrt{v_1}} \\[10pt]
@@ -305,7 +305,7 @@ $$
 				\sqrt{v_1}\sqrt{v_4}\mathbf{EC}_{12} & \sqrt{v_2}\sqrt{v_4}\mathbf{EC}_{22} & 0 & 0
 			\end{bmatrix}.
 \end{split}
-$$
+```
 The R function below automatically computes the covariance matrix $\mathbf{s}\mathbf{s}^\top \circ \left(\mathbf{C}_M \otimes \mathbf{EC}\right)$ and its partial derivatives:
 ```R
 # kappa[1] = variance for management 1, environment 1
@@ -374,21 +374,21 @@ Note that in this case, the first variance component is the variance of the firs
 Linear kernels completely fix the structure of the G $\times$ E pattern, as well as the absolute values of the correlations between environments.
 This is not particularly flexible and can result in inaccurate predictions if environmental covariables if the linear kernel does not match the true G $\times$ E structure.
 Non-linear kernels aim to solve this issue by introducing a single parameter called bandwidth that governs how a squared Euclidian distance matrix of the environments, $\mathbf{ED}$, is non-linearly transformed into a correlation matrix:
-$$
+```math
 \mathbf{C}_E = e^{-h\mathbf{ED}},
-$$
+```
 where $h$ is the bandwidth and
-$$
+```math
 \mathbf{ED} = \begin{bmatrix}
     \mathbf{ED}_{11} & \dots & \mathbf{ED}_{1q} \\
     \vdots & \ddots & \vdots \\
     \mathbf{ED}_{1q} & \dots & \mathbf{ED}_{qq}
 \end{bmatrix},
-$$
+```
 where
-$$
+```math
 \mathbf{ED}_{ij} = \dfrac{1}{w}\sum_{m=1}^{w} \left(\mathbf{W}_{mi} - \mathbf{W}_{mj}\right)^2.
-$$
+```
 The matrix $\mathbf{W} \in \mathbb{R}^{w \times q}$ containing values of $w$ environmental covariables for $q$ environments is row-wise centered and scaled.
 This type of non-linear kernel is often referred to as a Gaussian kernel.
 
@@ -403,5 +403,5 @@ Note that using a non-linear (Gaussian) kernel, only positive correlations betwe
 
 # R-package
 ```R
-
+test
 ```
