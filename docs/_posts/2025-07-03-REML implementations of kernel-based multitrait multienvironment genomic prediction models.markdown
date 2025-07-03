@@ -36,11 +36,11 @@ For G $\times$ E $\times$ M data we typically assume that $\boldsymbol{\Sigma}$ 
 $$\boldsymbol{\Sigma} = \boldsymbol{\Sigma}_{M} \otimes \boldsymbol{\Sigma}_{E} \otimes \boldsymbol{\Sigma}_{G}.$$
 
 The matrix $\boldsymbol{\Sigma}\_{G}$ is easy to model; we can use the genomic kinship matrix $\mathbf{K}$ or pedigree-based relationship matrix $\mathbf{A}$.
-We will assume that $\boldsymbol{\Sigma}_{G} = \mathbf{K}$ from here on.
-The matrices $\boldsymbol{\Sigma}_{M}$ and $\boldsymbol{\Sigma}_{E}$ are trickier.
+We will assume that $\boldsymbol{\Sigma}\_{G} = \mathbf{K}$ from here on.
+The matrices $\boldsymbol{\Sigma}\_{M}$ and $\boldsymbol{\Sigma}\_{E}$ are trickier.
 There are usually only a relatively small number of managements or traits, e.g., low vs medium vs high nitrogen, irrigated vs rainfed, or plant height and yield.
-We can thus use an unstructured model for $\boldsymbol{\Sigma}_{M}$ as we only need to estimate a few correlations.
-The covariance matrix of environments $\boldsymbol{\Sigma}_{E}$ is the hardest to model.
+We can thus use an unstructured model for $\boldsymbol{\Sigma}\_{M}$ as we only need to estimate a few correlations.
+The covariance matrix of environments $\boldsymbol{\Sigma}\_{E}$ is the hardest to model.
 As we typically have a relatively large number of environments, an unstructured model quickly becomes infeasible.
 In that case, a factor analytic (FA) structure is a popular choice.
 FA structures can still be problematic, however.
@@ -49,8 +49,8 @@ A solution that is often used is combining M and E into a new factor that is mod
 
 $$\mathbf{u} \sim \mathcal{N}\left(\mathbf{0}, \boldsymbol{\Sigma}_{ME} \otimes \mathbf{K}\right),$$
 
-where an FA structure is used for $\boldsymbol{\Sigma}_{ME}$.
-While this works better, estimation of $\boldsymbol{\Sigma}_{ME}$ can still be challenging if there is a large number of environments or if not all genotypes are present in all environments due to an MET design called sparse testing (see [this paper](https://doi.org/10.1534/g3.120.401349) for some information on sparse testing).
+where an FA structure is used for $\boldsymbol{\Sigma}\_{ME}$.
+While this works better, estimation of $\boldsymbol{\Sigma}\_{ME}$ can still be challenging if there is a large number of environments or if not all genotypes are present in all environments due to an MET design called sparse testing (see [this paper](https://doi.org/10.1534/g3.120.401349) for some information on sparse testing).
 
 ## Using kernels to model G $\times$ E $\times$ M data
 A possible solution to the challenges outlined in the previous section is to use environmental covariables.
@@ -83,19 +83,24 @@ See the end of this page for more information.
 # Linear kernels
 
 The linear kernels are computed similarly to how a genomic relationship matrix is obtained:
+
 $$
 \mathbf{EC} = \dfrac{\mathbf{W}^\top\mathbf{W}}{w-1},
 $$
+
 where $\mathbf{W}$ is a column-wise centered and scaled $w \times q$ matrix containing $w$ environmental covariables for $q$ environments.
 Simply put, a linear kernel is a correlation matrix of environments, based on environmental covariables.
 The kernel $\mathbf{EC}$ can then be combined with a single variance for each management or trait, or unique variance for all environments within a given management or trait.
 
 ## Single variance linear kernel (svlk)
 The single variance linear kernel assumes the following distribution for $\mathbf{u}$:
+
 $$
 \mathbf{u} \sim \mathcal{N}\left(\mathbf{0}, \boldsymbol{\Sigma}_{M} \otimes \mathbf{EC} \otimes \mathbf{K}\right),
 $$
-where $\mathbf{EC}$ is the linear kernel described earlier. The covariance matrix $\boldsymbol{\Sigma}_{M}$ is unstructured and estimated like how ASReml-R would estimate a covariance matrix using `corgh()`. As a simple illustration, consider the case of two managements and two environments:
+
+where $\mathbf{EC}$ is the linear kernel described earlier. The covariance matrix $\boldsymbol{\Sigma}\_{M}$ is unstructured and estimated like how ASReml-R would estimate a covariance matrix using `corgh()`. As a simple illustration, consider the case of two managements and two environments:
+
 $$
 \begin{split}
 			\boldsymbol{\Sigma}_M \otimes \mathbf{EC} &= \begin{bmatrix}
@@ -114,13 +119,17 @@ $$
 			\end{bmatrix}.
 			\end{split}
 $$
+
 The parameters to be estimated in the above example are:
+
 $$
 \boldsymbol{\kappa} = \begin{bmatrix}
     v_1, v_2, \rho_{12}
 \end{bmatrix}.
 $$
-To estimate these parameters we need the partial derivatives of $\boldsymbol{\Sigma}_M \otimes \mathbf{EC}$ with respect to each parameter:
+
+To estimate these parameters we need the partial derivatives of $\boldsymbol{\Sigma}\_M \otimes \mathbf{EC}$ with respect to each parameter:
+
 $$
 \begin{split}
 \dfrac{\partial \left(\boldsymbol{\Sigma}_M \otimes \mathbf{EC}\right)}{\partial v_1} &= \begin{bmatrix}
@@ -145,8 +154,9 @@ $$
 			\end{bmatrix}.
 \end{split}
 $$
+
 Note that this readily generalizes to any number of managements or environments.
-The R function below automatically computes the covariance matrix $\boldsymbol{\Sigma}_M \otimes \mathbf{EC}$ and its partial derivatives:
+The R function below automatically computes the covariance matrix $\boldsymbol{\Sigma}\_M \otimes \mathbf{EC}$ and its partial derivatives:
 ```R
 # kappa[1] = variance for all environments within management 1
 # kappa[2] = variance for all environments within management 2
@@ -215,12 +225,15 @@ For example, the first variance component will correspond to the variance for al
 
 ## Multiple variance linear kernel (mvlk)
 The multiple variance linear kernel assumes the following distribution for $\mathbf{u}$:
+
 $$
 \mathbf{u} \sim \mathcal{N}\left(\mathbf{0}, \mathbf{s}\mathbf{s}^\top \circ \left(\mathbf{C}_{M} \otimes \mathbf{EC}\right) \otimes \mathbf{K}\right),
 $$
-where $\mathbf{EC}$ is the linear kernel described earlier. The correlation matrix $\mathbf{C}_{M}$ is unstructured and estimated like how ASReml-R would estimate a correlation matrix using `corg()`.
+
+where $\mathbf{EC}$ is the linear kernel described earlier. The correlation matrix $\mathbf{C}\_{M}$ is unstructured and estimated like how ASReml-R would estimate a correlation matrix using `corg()`.
 The vector $\mathbf{s}$ contains the standard deviations for each E $\times$ M combination.
 As a simple illustration, consider again the case of two managements and two environments:
+
 $$
 \begin{split}
 				\mathbf{s}\mathbf{s}^\top \circ \left(\mathbf{C}_M \otimes \mathbf{EC}\right) &= \begin{bmatrix}
@@ -258,13 +271,17 @@ $$
 				\end{bmatrix}.
 			\end{split}
 $$
+
 The parameters to be estimated in the above example are:
+
 $$
 \boldsymbol{\kappa} = \begin{bmatrix}
     v_1, v_2, v_3, v_4, \rho_{12}
 \end{bmatrix}.
 $$
-To estimate these parameters we need the partial derivatives of $\mathbf{s}\mathbf{s}^\top \circ \left(\mathbf{C}_M \otimes \mathbf{EC}\right)$ with respect to each parameter:
+
+To estimate these parameters we need the partial derivatives of $\mathbf{s}\mathbf{s}^\top \circ \left(\mathbf{C}\_M \otimes \mathbf{EC}\right)$ with respect to each parameter:
+
 $$
 \begin{split}
 \dfrac{\partial \left(\mathbf{s}\mathbf{s}^\top \circ \left(\mathbf{C}_M \otimes \mathbf{EC}\right)\right)}{\partial v_1} &= \begin{bmatrix}
@@ -303,7 +320,8 @@ $$
 			\end{bmatrix}.
 \end{split}
 $$
-The R function below automatically computes the covariance matrix $\mathbf{s}\mathbf{s}^\top \circ \left(\mathbf{C}_M \otimes \mathbf{EC}\right)$ and its partial derivatives:
+
+The R function below automatically computes the covariance matrix $\mathbf{s}\mathbf{s}^\top \circ \left(\mathbf{C}\_M \otimes \mathbf{EC}\right)$ and its partial derivatives:
 ```R
 # kappa[1] = variance for management 1, environment 1
 # kappa[2] = variance for management 1, environment 2
@@ -371,10 +389,13 @@ Note that in this case, the first variance component is the variance of the firs
 Linear kernels completely fix the structure of the G $\times$ E pattern, as well as the absolute values of the correlations between environments.
 This is not particularly flexible and can result in inaccurate predictions if environmental covariables if the linear kernel does not match the true G $\times$ E structure.
 Non-linear kernels aim to solve this issue by introducing a single parameter called bandwidth that governs how a squared Euclidian distance matrix of the environments, $\mathbf{ED}$, is non-linearly transformed into a correlation matrix:
+
 $$
 \mathbf{C}_E = e^{-h\mathbf{ED}},
 $$
+
 where $h$ is the bandwidth and
+
 $$
 \mathbf{ED} = \begin{bmatrix}
     \mathbf{ED}_{11} & \dots & \mathbf{ED}_{1q} \\
@@ -382,21 +403,25 @@ $$
     \mathbf{ED}_{1q} & \dots & \mathbf{ED}_{qq}
 \end{bmatrix},
 $$
+
 where
+
 $$
 \mathbf{ED}_{ij} = \dfrac{1}{w}\sum_{m=1}^{w} \left(\mathbf{W}_{mi} - \mathbf{W}_{mj}\right)^2.
 $$
+
 The matrix $\mathbf{W} \in \mathbb{R}^{w \times q}$ containing values of $w$ environmental covariables for $q$ environments is row-wise centered and scaled.
 This type of non-linear kernel is often referred to as a Gaussian kernel.
 
 <img align="right", width="400", src="/assets/nonlinear.png">
 The graph on the right shows the effect of different bandwidth values on the correlations between environments for different squared Euclidian distances.
 Note that using a non-linear (Gaussian) kernel, only positive correlations between environments can be modeled.
-## Single variance non-linear kernel (svgk)
 
+## Single variance non-linear kernel (svgk)
+Placeholder text.
 
 ## Multiple variance non-linear kernel (mvgk)
-
+Placeholder text.
 
 # R-package
 ```R
