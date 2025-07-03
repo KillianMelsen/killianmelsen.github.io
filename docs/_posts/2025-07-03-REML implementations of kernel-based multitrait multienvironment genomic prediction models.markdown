@@ -17,18 +17,24 @@ $$\mathbf{y} = \begin{bmatrix}
 
 where $r$ genotypes are nested within $q$ environments, which are themselves nested within $p$ traits or managements.
 Asuming we have BLUEs from first stage analyses and thus a single phenotypic value for every G $\times$ E $\times$ M combination, we have $p \times q \times r = n$ records.
-We can model this data using a linear mixed model of the following form:\
+We can model this data using a linear mixed model of the following form:
+
 $$\mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \mathbf{Zu} + \boldsymbol{\epsilon},$$
+
 where $\mathbf{X} \in \mathbb{R}^{n \times pq}$ is a design matrix for the fixed effects and $\boldsymbol{\beta}$ is the $pq \times 1$ vector containing the estimates of these fixed effects (means of every E $\times$ M combination).
 The $n $\times$ 1$ vector $\boldsymbol{\epsilon}$ contains the residuals.
 The design matrix $\mathbf{Z}$ links records to the BLUPs for all G $\times$ E $\times$ M combinations in $\mathbf{u}$.
 Note that if we have $n$ records and they are ordered correctly, $\mathbf{Z} = \mathbf{I}_n$.
-The random vector $\mathbf{u}$ follows a multivariate normal distribution:\
+The random vector $\mathbf{u}$ follows a multivariate normal distribution:
+
 $$\mathbf{u} \sim \mathcal{N}\left(\mathbf{0}, \boldsymbol{\Sigma}\right),$$
+
 where $\boldsymbol{\Sigma}$ is the covariance matrix of $\mathbf{u}$.
 It is the modeling of this covariance matrix that we are primarily interested in.
-For G $\times$ E $\times$ M data we typically assume that $\boldsymbol{\Sigma}$ is composed of kronecker products of three smaller covariance matrices, one for each of the three factors genotype, environment, and management:\
+For G $\times$ E $\times$ M data we typically assume that $\boldsymbol{\Sigma}$ is composed of kronecker products of three smaller covariance matrices, one for each of the three factors genotype, environment, and management:
+
 $$\boldsymbol{\Sigma} = \boldsymbol{\Sigma}_{M} \otimes \boldsymbol{\Sigma}_{E} \otimes \boldsymbol{\Sigma}_{G}.$$
+
 The matrix $\boldsymbol{\Sigma}_{G}$ is easy to model; we can use the genomic kinship matrix $\mathbf{K}$ or pedigree-based relationship matrix $\mathbf{A}$.
 We will assume that $\boldsymbol{\Sigma}_{G} = \mathbf{K}$ from here on.
 The matrices $\boldsymbol{\Sigma}_{M}$ and $\boldsymbol{\Sigma}_{E}$ are trickier.
@@ -39,8 +45,10 @@ As we typically have a relatively large number of environments, an unstructured 
 In that case, a factor analytic (FA) structure is a popular choice.
 FA structures can still be problematic, however.
 Practically speaking, the model with the double kronecker product between an unstructured matrix for M, an FA matrix for E, and the kinship for G is very hard to fit.
-A solution that is often used is combining M and E into a new factor that is modeled using a single covariance matrix:\
+A solution that is often used is combining M and E into a new factor that is modeled using a single covariance matrix:
+
 $$\mathbf{u} \sim \mathcal{N}\left(\mathbf{0}, \boldsymbol{\Sigma}_{ME} \otimes \mathbf{K}\right),$$
+
 where an FA structure is used for $\boldsymbol{\Sigma}_{ME}$.
 While this works better, estimation of $\boldsymbol{\Sigma}_{ME}$ can still be challenging if there is a large number of environments or if not all genotypes are present in all environments due to an MET design called sparse testing (see [this paper](https://doi.org/10.1534/g3.120.401349) for some information on sparse testing).
 
