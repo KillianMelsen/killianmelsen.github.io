@@ -6,13 +6,15 @@ categories: guide
 ---
 # Introduction
 ## Linear mixed models for G $\times$ E $\times$ M data
-Suppose we have multi-trait genotype by environment (G $\times$ E) or genotype by environment by management (G $\times$ E $\times$ M) data from a multi-environment trial (MET) breeding program:\
-$$\mathbf{y} = \begin{bmatrix}
+Suppose we have multi-trait genotype by environment (G $\times$ E) or genotype by environment by management (G $\times$ E $\times$ M) data from a multi-environment trial (MET) breeding program:
+```math
+\mathbf{y} = \begin{bmatrix}
     y_{111} \\
     y_{112} \\
     \vdots \\
     y_{pqr} \\
-\end{bmatrix},$$\
+\end{bmatrix},
+```
 where $r$ genotypes are nested within $q$ environments, which are themselves nested within $p$ traits or managements.
 Asuming we have BLUEs from first stage analyses and thus a single phenotypic value for every G $\times$ E $\times$ M combination, we have $p \times q \times r = n$ records.
 We can model this data using a linear mixed model of the following form:\
