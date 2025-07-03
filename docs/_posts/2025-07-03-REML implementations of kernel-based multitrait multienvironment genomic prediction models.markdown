@@ -12,7 +12,7 @@ $$\mathbf{y} = \begin{bmatrix}
     y_{112} \\
     \vdots \\
     y_{pqr} \\
-\end{bmatrix},$$
+\end{bmatrix},$$\
 where $r$ genotypes are nested within $q$ environments, which are themselves nested within $p$ traits or managements.
 Asuming we have BLUEs from first stage analyses and thus a single phenotypic value for every G $\times$ E $\times$ M combination, we have $p \times q \times r = n$ records.
 We can model this data using a linear mixed model of the following form:\
