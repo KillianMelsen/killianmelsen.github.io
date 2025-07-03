@@ -35,7 +35,7 @@ For G $\times$ E $\times$ M data we typically assume that $\boldsymbol{\Sigma}$ 
 
 $$\boldsymbol{\Sigma} = \boldsymbol{\Sigma}_{M} \otimes \boldsymbol{\Sigma}_{E} \otimes \boldsymbol{\Sigma}_{G}.$$
 
-The matrix $\boldsymbol{\Sigma}_{G}$ is easy to model; we can use the genomic kinship matrix $\mathbf{K}$ or pedigree-based relationship matrix $\mathbf{A}$.
+The matrix \(\boldsymbol{\Sigma}_{G}\) is easy to model; we can use the genomic kinship matrix $\mathbf{K}$ or pedigree-based relationship matrix $\mathbf{A}$.
 We will assume that $\boldsymbol{\Sigma}_{G} = \mathbf{K}$ from here on.
 The matrices $\boldsymbol{\Sigma}_{M}$ and $\boldsymbol{\Sigma}_{E}$ are trickier.
 There are usually only a relatively small number of managements or traits, e.g., low vs medium vs high nitrogen, irrigated vs rainfed, or plant height and yield.
