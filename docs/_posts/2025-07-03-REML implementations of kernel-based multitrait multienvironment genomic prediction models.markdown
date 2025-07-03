@@ -22,7 +22,7 @@ We can model this data using a linear mixed model of the following form:
 $$\mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \mathbf{Zu} + \boldsymbol{\epsilon},$$
 
 where $\mathbf{X} \in \mathbb{R}^{n \times pq}$ is a design matrix for the fixed effects and $\boldsymbol{\beta}$ is the $pq \times 1$ vector containing the estimates of these fixed effects (means of every E $\times$ M combination).
-The $n $\times$ 1$ vector $\boldsymbol{\epsilon}$ contains the residuals.
+The $n \times$ 1$ vector $\boldsymbol{\epsilon}$ contains the residuals.
 The design matrix $\mathbf{Z}$ links records to the BLUPs for all G $\times$ E $\times$ M combinations in $\mathbf{u}$.
 Note that if we have $n$ records and they are ordered correctly, $\mathbf{Z} = \mathbf{I}_n$.
 The random vector $\mathbf{u}$ follows a multivariate normal distribution:
