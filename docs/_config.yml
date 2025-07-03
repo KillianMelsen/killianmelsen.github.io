@@ -46,7 +46,7 @@ plugins:
   - jekyll-feed
   - jekyll-remote-theme
 future: false
-timezone: Europe/Amsterdam
+#timezone: Europe/Amsterdam
 
 # Exclude from processing.
 # The following items will not be processed, by default.
