@@ -417,6 +417,20 @@ This type of non-linear kernel is often referred to as a Gaussian kernel.
 <img src="/assets/nonlinear.png" width="400" align="right">
 The graph on the right shows the effect of different bandwidth values on the correlations between environments for different squared Euclidian distances.
 Note that using a non-linear (Gaussian) kernel, only positive correlations between environments can be modeled.
+The graph on the right shows the effect of different bandwidth values on the correlations between environments for different squared Euclidian distances.
+Note that using a non-linear (Gaussian) kernel, only positive correlations between environments can be modeled.
+The graph on the right shows the effect of different bandwidth values on the correlations between environments for different squared Euclidian distances.
+Note that using a non-linear (Gaussian) kernel, only positive correlations between environments can be modeled.
+The graph on the right shows the effect of different bandwidth values on the correlations between environments for different squared Euclidian distances.
+Note that using a non-linear (Gaussian) kernel, only positive correlations between environments can be modeled.
+The graph on the right shows the effect of different bandwidth values on the correlations between environments for different squared Euclidian distances.
+Note that using a non-linear (Gaussian) kernel, only positive correlations between environments can be modeled.
+The graph on the right shows the effect of different bandwidth values on the correlations between environments for different squared Euclidian distances.
+Note that using a non-linear (Gaussian) kernel, only positive correlations between environments can be modeled.
+The graph on the right shows the effect of different bandwidth values on the correlations between environments for different squared Euclidian distances.
+Note that using a non-linear (Gaussian) kernel, only positive correlations between environments can be modeled.
+The graph on the right shows the effect of different bandwidth values on the correlations between environments for different squared Euclidian distances.
+Note that using a non-linear (Gaussian) kernel, only positive correlations between environments can be modeled.
 
 ## Single variance non-linear kernel (svgk)
 Placeholder text.
