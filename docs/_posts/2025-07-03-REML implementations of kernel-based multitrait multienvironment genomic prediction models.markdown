@@ -94,7 +94,7 @@ Simply put, a linear kernel is a correlation matrix of environments, based on en
 The kernel $\mathbf{EC}$ can then be combined with a single variance for each management or trait, or unique variance for all environments within a given management or trait.
 
 ## Single variance linear kernel (svlk)
-The single variance linear kernel assumes the following distribution for $\mathbf{u}$:
+The **s**ingle **v**ariance **l**inear **k**ernel assumes the following distribution for $\mathbf{u}$:
 
 $$
 \mathbf{u} \sim \mathcal{N}\left(\mathbf{0}, \boldsymbol{\Sigma}_{M} \otimes \mathbf{EC} \otimes \mathbf{K}\right),
@@ -105,18 +105,18 @@ where $\mathbf{EC}$ is the linear kernel described earlier. The covariance matri
 $$
 \begin{split}
 			\boldsymbol{\Sigma}_M \otimes \mathbf{EC} &= \begin{bmatrix}
-				v_1 & \sqrt{v_1}\sqrt{v_2}\rho_{12} \\[5pt]
-				\sqrt{v_1}\sqrt{v_2}\rho_{12} & v_2
+				v_1 & \sqrt{v_1}\,\sqrt{v_2}\,\rho_{12} \\[5pt]
+				\sqrt{v_1}\,\sqrt{v_2}\,\rho_{12} & v_2
 			\end{bmatrix} \otimes \begin{bmatrix}
 				\mathbf{EC}_{11} & \mathbf{EC}_{12} \\[5pt]
 				\mathbf{EC}_{12} & \mathbf{EC}_{22}
 			\end{bmatrix} \\
 			\\
 			&=\begin{bmatrix}
-				v_1 \mathbf{EC}_{11} & v_1 \mathbf{EC}_{12} &  \sqrt{v_1}\sqrt{v_2}\rho_{12}\mathbf{EC}_{11} & \sqrt{v_1}\sqrt{v_2}\rho_{12}\mathbf{EC}_{12} \\[5pt]
-				v_1 \mathbf{EC}_{12} & v_1 \mathbf{EC}_{22} & \sqrt{v_1}\sqrt{v_2}\rho_{12}\mathbf{EC}_{12} & \sqrt{v_1}\sqrt{v_2}\rho_{12}\mathbf{EC}_{22} \\[5pt]
-				\sqrt{v_1}\sqrt{v_2}\rho_{12} \mathbf{EC}_{11} & \sqrt{v_1}\sqrt{v_2}\rho_{12} \mathbf{EC}_{12} & v_2\mathbf{EC}_{11} & v_2\mathbf{EC}_{12} \\[5pt]
-				\sqrt{v_1}\sqrt{v_2}\rho_{12} \mathbf{EC}_{12} & \sqrt{v_1}\sqrt{v_2}\rho_{12} \mathbf{EC}_{22} & v_2\mathbf{EC}_{12} & v_2\mathbf{EC}_{22}
+				v_1\,\mathbf{EC}_{11} & v_1\,\mathbf{EC}_{12} & \sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,\mathbf{EC}_{11} & \sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,\mathbf{EC}_{12} \\[5pt]
+				v_1\,\mathbf{EC}_{12} & v_1\,\mathbf{EC}_{22} & \sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,\mathbf{EC}_{12} & \sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,\mathbf{EC}_{22} \\[5pt]
+				\sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,\mathbf{EC}_{11} & \sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,\mathbf{EC}_{12} & v_2\,\mathbf{EC}_{11} & v_2\,\mathbf{EC}_{12} \\[5pt]
+				\sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,\mathbf{EC}_{12} & \sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,\mathbf{EC}_{22} & v_2\,\mathbf{EC}_{12} & v_2\,\mathbf{EC}_{22}
 			\end{bmatrix}.
 			\end{split}
 $$
@@ -134,24 +134,24 @@ To estimate these parameters we need the partial derivatives of $\boldsymbol{\Si
 $$
 \begin{split}
 \dfrac{\partial \left(\boldsymbol{\Sigma}_M \otimes \mathbf{EC}\right)}{\partial v_1} &= \begin{bmatrix}
-				\mathbf{EC}_{11} & \mathbf{EC}_{12} & \dfrac{0.5\sqrt{v_2}\rho_{12}\mathbf{EC}_{11}}{\sqrt{v_1}} & \dfrac{0.5\sqrt{v_2}\rho_{12}\mathbf{EC}_{12}}{\sqrt{v_1}} \\[10pt]
-				\mathbf{EC}_{12} & \mathbf{EC}_{22} & \dfrac{0.5\sqrt{v_2}\rho_{12}\mathbf{EC}_{12}}{\sqrt{v_1}} & \dfrac{0.5\sqrt{v_2}\rho_{12}\mathbf{EC}_{22}}{\sqrt{v_1}} \\[10pt]
-				\dfrac{0.5\sqrt{v_2}\rho_{12}\mathbf{EC}_{11}}{\sqrt{v_1}} & \dfrac{0.5\sqrt{v_2}\rho_{12}\mathbf{EC}_{12}}{\sqrt{v_1}} & 0 & 0 \\[10pt]
-				\dfrac{0.5\sqrt{v_2}\rho_{12}\mathbf{EC}_{12}}{\sqrt{v_1}} & \dfrac{0.5\sqrt{v_2}\rho_{12}\mathbf{EC}_{22}}{\sqrt{v_1}} & 0 & 0
+				\mathbf{EC}_{11} & \mathbf{EC}_{12} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,\mathbf{EC}_{11}}{\sqrt{v_1}} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,\mathbf{EC}_{12}}{\sqrt{v_1}} \\[10pt]
+				\mathbf{EC}_{12} & \mathbf{EC}_{22} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,\mathbf{EC}_{12}}{\sqrt{v_1}} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,\mathbf{EC}_{22}}{\sqrt{v_1}} \\[10pt]
+				\dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,\mathbf{EC}_{11}}{\sqrt{v_1}} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,\mathbf{EC}_{12}}{\sqrt{v_1}} & 0 & 0 \\[10pt]
+				\dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,\mathbf{EC}_{12}}{\sqrt{v_1}} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,\mathbf{EC}_{22}}{\sqrt{v_1}} & 0 & 0
 			\end{bmatrix} \\
 \\
 \dfrac{\partial \left(\boldsymbol{\Sigma}_M \otimes \mathbf{EC}\right)}{\partial v_2} &= \begin{bmatrix}
-				0 & 0 & \dfrac{0.5\sqrt{v_1}\rho_{12}\mathbf{EC}_{11}}{\sqrt{v_2}} & \dfrac{0.5\sqrt{v_1}\rho_{12}\mathbf{EC}_{12}}{\sqrt{v_2}} \\[10pt]
-				0 & 0 & \dfrac{0.5\sqrt{v_1}\rho_{12}\mathbf{EC}_{12}}{\sqrt{v_2}} & \dfrac{0.5\sqrt{v_1}\rho_{12}\mathbf{EC}_{22}}{\sqrt{v_2}} \\[10pt]
-				\dfrac{0.5\sqrt{v_1}\rho_{12}\mathbf{EC}_{11}}{\sqrt{v_2}} & \dfrac{0.5\sqrt{v_1}\rho_{12}\mathbf{EC}_{12}}{\sqrt{v_2}} & \mathbf{EC}_{11} & \mathbf{EC}_{12} \\[10pt]
-				\dfrac{0.5\sqrt{v_1}\rho_{12}\mathbf{EC}_{12}}{\sqrt{v_2}} & \dfrac{0.5\sqrt{v_1}\rho_{12}\mathbf{EC}_{22}}{\sqrt{v_2}} & \mathbf{EC}_{12} & \mathbf{EC}_{22}
+				0 & 0 & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,\mathbf{EC}_{11}}{\sqrt{v_2}} & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,\mathbf{EC}_{12}}{\sqrt{v_2}} \\[10pt]
+				0 & 0 & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,\mathbf{EC}_{12}}{\sqrt{v_2}} & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,\mathbf{EC}_{22}}{\sqrt{v_2}} \\[10pt]
+				\dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,\mathbf{EC}_{11}}{\sqrt{v_2}} & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,\mathbf{EC}_{12}}{\sqrt{v_2}} & \mathbf{EC}_{11} & \mathbf{EC}_{12} \\[10pt]
+				\dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,\mathbf{EC}_{12}}{\sqrt{v_2}} & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,\mathbf{EC}_{22}}{\sqrt{v_2}} & \mathbf{EC}_{12} & \mathbf{EC}_{22}
 			\end{bmatrix} \\
 \\
 \dfrac{\partial \left(\boldsymbol{\Sigma}_M \otimes \mathbf{EC}\right)}{\partial \rho_{12}} &= \begin{bmatrix}
-				0 & 0 & \sqrt{v_1}\sqrt{v_2}\mathbf{EC}_{11} & \sqrt{v_1}\sqrt{v_2}\mathbf{EC}_{12} \\[5pt]
-				0 & 0 & \sqrt{v_1}\sqrt{v_2}\mathbf{EC}_{12} & \sqrt{v_1}\sqrt{v_2}\mathbf{EC}_{22} \\[5pt]
-				\sqrt{v_1}\sqrt{v_2}\mathbf{EC}_{11} & \sqrt{v_1}\sqrt{v_2}\mathbf{EC}_{12} & 0 & 0 \\[5pt]
-				\sqrt{v_1}\sqrt{v_2}\mathbf{EC}_{12} & \sqrt{v_1}\sqrt{v_2}\mathbf{EC}_{22} & 0 & 0
+				0 & 0 & \sqrt{v_1}\,\sqrt{v_2}\,\mathbf{EC}_{11} & \sqrt{v_1}\,\sqrt{v_2}\,\mathbf{EC}_{12} \\[5pt]
+				0 & 0 & \sqrt{v_1}\,\sqrt{v_2}\,\mathbf{EC}_{12} & \sqrt{v_1}\,\sqrt{v_2}\,\mathbf{EC}_{22} \\[5pt]
+				\sqrt{v_1}\,\sqrt{v_2}\,\mathbf{EC}_{11} & \sqrt{v_1}\,\sqrt{v_2}\,\mathbf{EC}_{12} & 0 & 0 \\[5pt]
+				\sqrt{v_1}\,\sqrt{v_2}\,\mathbf{EC}_{12} & \sqrt{v_1}\,\sqrt{v_2}\,\mathbf{EC}_{22} & 0 & 0
 			\end{bmatrix}.
 \end{split}
 $$
@@ -225,7 +225,7 @@ There will not be any descriptive rownames for the variance components, so refer
 For example, the first variance component will correspond to the variance for all environments within the first level of management.
 
 ## Multiple variance linear kernel (mvlk)
-The multiple variance linear kernel assumes the following distribution for $\mathbf{u}$:
+The **m**ultiple **v**ariance **l**inear **k**ernel assumes the following distribution for $\mathbf{u}$:
 
 $$
 \mathbf{u} \sim \mathcal{N}\left(\mathbf{0}, \mathbf{s}\mathbf{s}^\top \circ \left(\mathbf{C}_{M} \otimes \mathbf{EC}\right) \otimes \mathbf{K}\right),
@@ -243,7 +243,7 @@ $$
                     \sqrt{v_3} \\[5pt]
                     \sqrt{v_4}
                 \end{bmatrix} \begin{bmatrix}
-                    \sqrt{v_1}\quad\sqrt{v_2}\quad\sqrt{v_3}\quad\sqrt{v_4}
+                    \sqrt{v_1}\,\,\,\sqrt{v_2}\,\,\,\sqrt{v_3}\,\,\,\sqrt{v_4}
                 \end{bmatrix} \circ \left(\begin{bmatrix}
 					1 & \rho_{12} \\[5pt]
 					\rho_{12} & 1
@@ -253,22 +253,22 @@ $$
 				\end{bmatrix}\right) \\
                 \\
                 &=\begin{bmatrix}
-					v_1 & \sqrt{v_1}\sqrt{v_2} & \sqrt{v_1}\sqrt{v_3} & \sqrt{v_1}\sqrt{v_4} \\[5pt]
-					\sqrt{v_1}\sqrt{v_2} & v_2 & \sqrt{v_2}\sqrt{v_3} & \sqrt{v_2}\sqrt{v_4} \\[5pt]
-					\sqrt{v_1}\sqrt{v_3} & \sqrt{v_2}\sqrt{v_3} & v_3 & \sqrt{v_3}\sqrt{v_4} \\[5pt]
-					\sqrt{v_1}\sqrt{v_4} & \sqrt{v_2}\sqrt{v_4} & \sqrt{v_3}\sqrt{v_4} & v_4
+					v_1 & \sqrt{v_1}\,\sqrt{v_2} & \sqrt{v_1}\,\sqrt{v_3} & \sqrt{v_1}\,\sqrt{v_4} \\[5pt]
+					\sqrt{v_1}\,\sqrt{v_2} & v_2 & \sqrt{v_2}\,\sqrt{v_3} & \sqrt{v_2}\,\sqrt{v_4} \\[5pt]
+					\sqrt{v_1}\,\sqrt{v_3} & \sqrt{v_2}\,\sqrt{v_3} & v_3 & \sqrt{v_3}\,\sqrt{v_4} \\[5pt]
+					\sqrt{v_1}\,\sqrt{v_4} & \sqrt{v_2}\,\sqrt{v_4} & \sqrt{v_3}\,\sqrt{v_4} & v_4
 				\end{bmatrix} \circ \begin{bmatrix}
-                    \mathbf{EC}_{11} & \mathbf{EC}_{12} & \rho_{12}\mathbf{EC}_{11} & \rho_{12}\mathbf{EC}_{12} \\[5pt]
-                    \mathbf{EC}_{12} & \mathbf{EC}_{22} & \rho_{12}\mathbf{EC}_{12} & \rho_{12}\mathbf{EC}_{22} \\[5pt]
-                    \rho_{12}\mathbf{EC}_{11} & \rho_{12}\mathbf{EC}_{12} & \mathbf{EC}_{11} & \mathbf{EC}_{12} \\[5pt]
-                    \rho_{12}\mathbf{EC}_{12} & \rho_{12}\mathbf{EC}_{22} & \mathbf{EC}_{12} & \mathbf{EC}_{22}
+                    \mathbf{EC}_{11} & \mathbf{EC}_{12} & \rho_{12}\,\mathbf{EC}_{11} & \rho_{12}\,\mathbf{EC}_{12} \\[5pt]
+                    \mathbf{EC}_{12} & \mathbf{EC}_{22} & \rho_{12}\,\mathbf{EC}_{12} & \rho_{12}\,\mathbf{EC}_{22} \\[5pt]
+                    \rho_{12}\,\mathbf{EC}_{11} & \rho_{12}\,\mathbf{EC}_{12} & \mathbf{EC}_{11} & \mathbf{EC}_{12} \\[5pt]
+                    \rho_{12}\,\mathbf{EC}_{12} & \rho_{12}\,\mathbf{EC}_{22} & \mathbf{EC}_{12} & \mathbf{EC}_{22}
 				\end{bmatrix} \\
 				\\
 				&=\begin{bmatrix}
-					v_1 \mathbf{EC}_{11} & \sqrt{v_1}\sqrt{v_2} \mathbf{EC}_{12} &  \sqrt{v_1}\sqrt{v_3}\rho_{12}\mathbf{EC}_{11} & \sqrt{v_1}\sqrt{v_4}\rho_{12}\mathbf{EC}_{12} \\[5pt]
-					\sqrt{v_1}\sqrt{v_2} \mathbf{EC}_{12} & v_2 \mathbf{EC}_{22} & \sqrt{v_2}\sqrt{v_3}\rho_{12}\mathbf{EC}_{12} & \sqrt{v_2}\sqrt{v_4}\rho_{12}\mathbf{EC}_{22} \\[5pt]
-					\sqrt{v_1}\sqrt{v_3}\rho_{12} \mathbf{EC}_{11} & \sqrt{v_2}\sqrt{v_3}\rho_{12} \mathbf{EC}_{12} & v_3\mathbf{EC}_{11} & \sqrt{v_3}\sqrt{v_4}\mathbf{EC}_{12} \\[5pt]
-					\sqrt{v_1}\sqrt{v_4}\rho_{12} \mathbf{EC}_{12} & \sqrt{v_2}\sqrt{v_4}\rho_{12} \mathbf{EC}_{22} & \sqrt{v_3}\sqrt{v_4}\mathbf{EC}_{12} & v_4\mathbf{EC}_{22}
+					v_1\,\mathbf{EC}_{11} & \sqrt{v_1}\,\sqrt{v_2}\,\mathbf{EC}_{12} & \sqrt{v_1}\,\sqrt{v_3}\,\rho_{12}\,\mathbf{EC}_{11} & \sqrt{v_1}\,\sqrt{v_4}\,\rho_{12}\,\mathbf{EC}_{12} \\[5pt]
+					\sqrt{v_1}\,\sqrt{v_2}\,\mathbf{EC}_{12} & v_2\,\mathbf{EC}_{22} & \sqrt{v_2}\,\sqrt{v_3}\,\rho_{12}\,\mathbf{EC}_{12} & \sqrt{v_2}\,\sqrt{v_4}\,\rho_{12}\,\mathbf{EC}_{22} \\[5pt]
+					\sqrt{v_1}\,\sqrt{v_3}\,\rho_{12}\,\mathbf{EC}_{11} & \sqrt{v_2}\,\sqrt{v_3}\,\rho_{12}\,\mathbf{EC}_{12} & v_3\,\mathbf{EC}_{11} & \sqrt{v_3}\,\sqrt{v_4}\,\mathbf{EC}_{12} \\[5pt]
+					\sqrt{v_1}\,\sqrt{v_4}\,\rho_{12}\,\mathbf{EC}_{12} & \sqrt{v_2}\,\sqrt{v_4}\,\rho_{12}\,\mathbf{EC}_{22} & \sqrt{v_3}\,\sqrt{v_4}\,\mathbf{EC}_{12} & v_4\,\mathbf{EC}_{22}
 				\end{bmatrix}.
 			\end{split}
 $$
@@ -286,38 +286,38 @@ To estimate these parameters we need the partial derivatives of $\mathbf{s}\math
 $$
 \begin{split}
 \dfrac{\partial \left(\mathbf{s}\mathbf{s}^\top \circ \left(\mathbf{C}_M \otimes \mathbf{EC}\right)\right)}{\partial v_1} &= \begin{bmatrix}
-            \mathbf{EC}_{11} & \dfrac{0.5\sqrt{v_2}\mathbf{EC}_{12}}{\sqrt{v_1}} & \dfrac{0.5\sqrt{v_3}\rho_{12}\mathbf{EC}_{11}}{\sqrt{v_1}} & \dfrac{0.5\sqrt{v_4}\rho_{12}\mathbf{EC}_{12}}{\sqrt{v_1}} \\[10pt]
-            \dfrac{0.5\sqrt{v_2}\mathbf{EC}_{12}}{\sqrt{v_1}} & 0 & 0 & 0 \\[10pt]
-            \dfrac{0.5\sqrt{v_3}\rho_{12}\mathbf{EC}_{11}}{\sqrt{v_1}} & 0 & 0 & 0 \\[10pt]
-            \dfrac{0.5\sqrt{v_4}\rho_{12}\mathbf{EC}_{12}}{\sqrt{v_1}} & 0 & 0 & 0
+            \mathbf{EC}_{11} & \dfrac{0.5\,\sqrt{v_2}\,\mathbf{EC}_{12}}{\sqrt{v_1}} & \dfrac{0.5\,\sqrt{v_3}\,\rho_{12}\,\mathbf{EC}_{11}}{\sqrt{v_1}} & \dfrac{0.5\,\sqrt{v_4}\,\rho_{12}\,\mathbf{EC}_{12}}{\sqrt{v_1}} \\[10pt]
+            \dfrac{0.5\,\sqrt{v_2}\,\mathbf{EC}_{12}}{\sqrt{v_1}} & 0 & 0 & 0 \\[10pt]
+            \dfrac{0.5\,\sqrt{v_3}\,\rho_{12}\,\mathbf{EC}_{11}}{\sqrt{v_1}} & 0 & 0 & 0 \\[10pt]
+            \dfrac{0.5\,\sqrt{v_4}\,\rho_{12}\,\mathbf{EC}_{12}}{\sqrt{v_1}} & 0 & 0 & 0
         \end{bmatrix} \\
 \\
 \dfrac{\partial \left(\mathbf{s}\mathbf{s}^\top \circ \left(\mathbf{C}_M \otimes \mathbf{EC}\right)\right)}{\partial v_2} &= \begin{bmatrix}
-				0 & \dfrac{0.5\sqrt{v_1}\mathbf{EC}_{12}}{\sqrt{v_2}} & 0 & 0 \\[10pt]
-				\dfrac{0.5\sqrt{v_1}\mathbf{EC}_{12}}{\sqrt{v_2}} & \mathbf{EC}_{22} & \dfrac{0.5\sqrt{v_3}\rho_{12}\mathbf{EC}_{12}}{\sqrt{v_2}} & \dfrac{0.5\sqrt{v_4}\rho_{12}\mathbf{EC}_{22}}{\sqrt{v_2}} \\[10pt]
-				0 & \dfrac{0.5\sqrt{v_3}\rho_{12}\mathbf{EC}_{12}}{\sqrt{v_2}} & 0 & 0 \\[10pt]
-				0 & \dfrac{0.5\sqrt{v_4}\rho_{12}\mathbf{EC}_{22}}{\sqrt{v_2}} & 0 & 0
+				0 & \dfrac{0.5\,\sqrt{v_1}\,\mathbf{EC}_{12}}{\sqrt{v_2}} & 0 & 0 \\[10pt]
+				\dfrac{0.5\,\sqrt{v_1}\,\mathbf{EC}_{12}}{\sqrt{v_2}} & \mathbf{EC}_{22} & \dfrac{0.5\,\sqrt{v_3}\,\rho_{12}\,\mathbf{EC}_{12}}{\sqrt{v_2}} & \dfrac{0.5\,\sqrt{v_4}\,\rho_{12}\,\mathbf{EC}_{22}}{\sqrt{v_2}} \\[10pt]
+				0 & \dfrac{0.5\,\sqrt{v_3}\,\rho_{12}\,\mathbf{EC}_{12}}{\sqrt{v_2}} & 0 & 0 \\[10pt]
+				0 & \dfrac{0.5\,\sqrt{v_4}\,\rho_{12}\,\mathbf{EC}_{22}}{\sqrt{v_2}} & 0 & 0
 			\end{bmatrix} \\
 \\
 \dfrac{\partial \left(\mathbf{s}\mathbf{s}^\top \circ \left(\mathbf{C}_M \otimes \mathbf{EC}\right)\right)}{\partial v_3} &= \begin{bmatrix}
-				0 & 0 & \dfrac{0.5\sqrt{v_1}\rho_{12}\mathbf{EC}_{11}}{\sqrt{v_3}} & 0 \\[10pt]
-				0 & 0 & \dfrac{0.5\sqrt{v_2}\rho_{12}\mathbf{EC}_{12}}{\sqrt{v_3}} & 0 \\[10pt]
-				\dfrac{0.5\sqrt{v_1}\rho_{12}\mathbf{EC}_{11}}{\sqrt{v_3}} & \dfrac{0.5\sqrt{v_2}\rho_{12}\mathbf{EC}_{12}}{\sqrt{v_3}} & \mathbf{EC}_{11} & \dfrac{0.5\sqrt{v_4}\mathbf{EC}_{12}}{\sqrt{v_3}} \\[10pt]
-				0 & 0 & \dfrac{0.5\sqrt{v_4}\mathbf{EC}_{12}}{\sqrt{v_3}} & 0
+				0 & 0 & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,\mathbf{EC}_{11}}{\sqrt{v_3}} & 0 \\[10pt]
+				0 & 0 & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,\mathbf{EC}_{12}}{\sqrt{v_3}} & 0 \\[10pt]
+				\dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,\mathbf{EC}_{11}}{\sqrt{v_3}} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,\mathbf{EC}_{12}}{\sqrt{v_3}} & \mathbf{EC}_{11} & \dfrac{0.5\,\sqrt{v_4}\,\mathbf{EC}_{12}}{\sqrt{v_3}} \\[10pt]
+				0 & 0 & \dfrac{0.5\,\sqrt{v_4}\,\mathbf{EC}_{12}}{\sqrt{v_3}} & 0
 			\end{bmatrix} \\
 \\
 \dfrac{\partial \left(\mathbf{s}\mathbf{s}^\top \circ \left(\mathbf{C}_M \otimes \mathbf{EC}\right)\right)}{\partial v_4} &= \begin{bmatrix}
-				0 & 0 & 0 & \dfrac{0.5\sqrt{v_1}\rho_{12}\mathbf{EC}_{12}}{\sqrt{v_4}} \\[10pt]
-				0 & 0 & 0 & \dfrac{0.5\sqrt{v_2}\rho_{12}\mathbf{EC}_{22}}{\sqrt{v_4}} \\[10pt]
-				0 & 0 & 0 & \dfrac{0.5\sqrt{v_3}\mathbf{EC}_{12}}{\sqrt{v_4}} \\[10pt]
-				\dfrac{0.5\sqrt{v_1}\rho_{12}\mathbf{EC}_{12}}{\sqrt{v_4}} & \dfrac{0.5\sqrt{v_2}\rho_{12}\mathbf{EC}_{22}}{\sqrt{v_4}} & \dfrac{0.5\sqrt{v_3}\mathbf{EC}_{12}}{\sqrt{v_4}} & \mathbf{EC}_{22}
+				0 & 0 & 0 & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,\mathbf{EC}_{12}}{\sqrt{v_4}} \\[10pt]
+				0 & 0 & 0 & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,\mathbf{EC}_{22}}{\sqrt{v_4}} \\[10pt]
+				0 & 0 & 0 & \dfrac{0.5\,\sqrt{v_3}\,\mathbf{EC}_{12}}{\sqrt{v_4}} \\[10pt]
+				\dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,\mathbf{EC}_{12}}{\sqrt{v_4}} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,\mathbf{EC}_{22}}{\sqrt{v_4}} & \dfrac{0.5\,\sqrt{v_3}\,\mathbf{EC}_{12}}{\sqrt{v_4}} & \mathbf{EC}_{22}
 			\end{bmatrix} \\
 \\
 \dfrac{\partial \left(\mathbf{s}\mathbf{s}^\top \circ \left(\mathbf{C}_M \otimes \mathbf{EC}\right)\right)}{\partial \rho_{12}} &= \begin{bmatrix}
-				0 & 0 & \sqrt{v_1}\sqrt{v_3}\mathbf{EC}_{11} & \sqrt{v_1}\sqrt{v_4}\mathbf{EC}_{12} \\[10pt]
-				0 & 0 & \sqrt{v_2}\sqrt{v_3}\mathbf{EC}_{12} & \sqrt{v_2}\sqrt{v_4}\mathbf{EC}_{22} \\[10pt]
-				\sqrt{v_1}\sqrt{v_3}\mathbf{EC}_{11} & \sqrt{v_2}\sqrt{v_3}\mathbf{EC}_{12} & 0 & 0 \\[10pt]
-				\sqrt{v_1}\sqrt{v_4}\mathbf{EC}_{12} & \sqrt{v_2}\sqrt{v_4}\mathbf{EC}_{22} & 0 & 0
+				0 & 0 & \sqrt{v_1}\,\sqrt{v_3}\,\mathbf{EC}_{11} & \sqrt{v_1}\,\sqrt{v_4}\,\mathbf{EC}_{12} \\[10pt]
+				0 & 0 & \sqrt{v_2}\,\sqrt{v_3}\,\mathbf{EC}_{12} & \sqrt{v_2}\,\sqrt{v_4}\,\mathbf{EC}_{22} \\[10pt]
+				\sqrt{v_1}\,\sqrt{v_3}\,\mathbf{EC}_{11} & \sqrt{v_2}\,\sqrt{v_3}\,\mathbf{EC}_{12} & 0 & 0 \\[10pt]
+				\sqrt{v_1}\,\sqrt{v_4}\,\mathbf{EC}_{12} & \sqrt{v_2}\,\sqrt{v_4}\,\mathbf{EC}_{22} & 0 & 0
 			\end{bmatrix}.
 \end{split}
 $$
@@ -392,7 +392,7 @@ This is not particularly flexible and can result in inaccurate predictions if en
 Non-linear kernels aim to solve this issue by introducing a single parameter called bandwidth that governs how a squared Euclidian distance matrix of the environments, $\mathbf{ED}$, is non-linearly transformed into a correlation matrix:
 
 $$
-\mathbf{C}_E = e^{-h\mathbf{ED}},
+\mathbf{C}_E = e^{-h\,\mathbf{ED}},
 $$
 
 where $h$ is the bandwidth and
@@ -415,17 +415,227 @@ The matrix $\mathbf{W} \in \mathbb{R}^{w \times q}$ containing values of $w$ env
 This type of non-linear kernel is often referred to as a Gaussian kernel.
 
 <img src="/assets/nonlinear.png" width="400" align="right">
+
 The graph on the right shows the effect of different bandwidth values on the correlations between environments for different squared Euclidian distances.
 Note that using a non-linear (Gaussian) kernel, only positive correlations between environments can be modeled.
 Also note that if we treat the bandwidth the same as a variance during estimation, we can end up with either a diagonal or main effects model for the G $\times$ E.
+If the estimated bandwidth is large, all distances tend to be transformed into correlations close to $0$, leading to a diagonal model where no borrowing of information between environments is happening.
+Alternatively, if the estimated bandwidth is small, all correlations will tend to be close to $1$ after the non-linear transformation, leading to what is effectively a main effects model that ignores G $\times$ E and allows full borrowing of information between environments.
+Neither of these extremes are likely to result in good fits, so typically an intermediate bandwidth is estimated such that the correlation matrix obtained after transformation of the distance matrix using that bandwidth fits the data well.
 
 ## Single variance non-linear kernel (svgk)
-Placeholder text.
+The **s**ingle **v**ariance non-linear, or **g**aussian, **k**ernel assumes the following distribution for $\mathbf{u}$:
+
+$$
+\mathbf{u} \sim \mathcal{N}\left(\mathbf{0}, \boldsymbol{\Sigma}_{M} \otimes e^{-h\,\mathbf{ED}}\right)
+$$
+
+where $\mathbf{ED}$ is the squared Euclidian distance matrix of the environments and $h$ is the bandwidth parameter. The covariance matrix $\boldsymbol{\Sigma}\_{M}$ is unstructured and estimated like how ASReml-R would estimate a covariance matrix using `corgh()`. As a simple illustration, consider the case of two managements and two environments:
+
+$$
+\begin{split}
+			\boldsymbol{\Sigma}_{M} \otimes e^{-h\,\mathbf{ED}} &= \begin{bmatrix}
+				v_1 & \sqrt{v_1}\,\sqrt{v_2}\,\rho_{12} \\[5pt]
+				\sqrt{v_1}\;\sqrt{v_2}\,\rho_{12} & v_2
+			\end{bmatrix} \otimes \begin{bmatrix}
+				e^{-h\,\mathbf{ED}_{11}} & e^{-h\,\mathbf{ED}_{12}} \\[5pt]
+				e^{-h\,\mathbf{ED}_{12}} & e^{-h\,\mathbf{ED}_{22}}
+			\end{bmatrix} \\
+			\\
+			&=\begin{bmatrix}
+				v_1\,e^{-h\,\mathbf{ED}_{11}} & v_1\,e^{-h\,\mathbf{ED}_{12}} &  \sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{ED}_{11}} & \sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{ED}_{12}} \\[5pt]
+				v_1\,e^{-h\,\mathbf{ED}_{12}} & v_1\,e^{-h\,\mathbf{ED}_{22}} & \sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{ED}_{12}} & \sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{ED}_{22}} \\[5pt]
+				\sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{ED}_{11}} & \sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{ED}_{12}} & v_2\,e^{-h\,\mathbf{ED}_{11}} & v_2\,e^{-h\,\mathbf{ED}_{12}} \\[5pt]
+				\sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{ED}_{12}} & \sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{ED}_{22}} & v_2\,e^{-h\,\mathbf{ED}_{12}} & v_2\,e^{-h\,\mathbf{ED}_{22}}
+			\end{bmatrix}.
+			\end{split}
+$$
+
+The parameters to be estimated in the above example are:
+
+$$
+\boldsymbol{\kappa} = \begin{bmatrix}
+    v_1, v_2, \rho_{12}, h
+\end{bmatrix}.
+$$
+
+To estimate these parameters we need the partial derivatives of $\boldsymbol{\Sigma}\_{M} \otimes e^{-h\,\mathbf{ED}}$ with respect to each parameter:
+
+$$
+\begin{split}
+\dfrac{\partial \left(\boldsymbol{\Sigma}_{M} \otimes e^{-h\,\mathbf{ED}}\right)}{\partial v_1} &= \begin{bmatrix}
+				e^{-h\,\mathbf{ED}_{11}} & e^{-h\,\mathbf{ED}_{12}} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{ED}_{11}}}{\sqrt{v_1}} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{ED}_{12}}}{\sqrt{v_1}} \\[10pt]
+				e^{-h\,\mathbf{ED}_{12}} & e^{-h\,\mathbf{ED}_{22}} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{ED}_{12}}}{\sqrt{v_1}} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{ED}_{22}}}{\sqrt{v_1}} \\[10pt]
+				\dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{ED}_{11}}}{\sqrt{v_1}} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{ED}_{12}}}{\sqrt{v_1}} & 0 & 0 \\[10pt]
+				\dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{ED}_{12}}}{\sqrt{v_1}} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{ED}_{22}}}{\sqrt{v_1}} & 0 & 0
+			\end{bmatrix} \\
+\\
+\dfrac{\partial \left(\boldsymbol{\Sigma}_{M} \otimes e^{-h\,\mathbf{ED}}\right)}{\partial v_2} &= \begin{bmatrix}
+				0 & 0 & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,e^{-h\,\mathbf{ED}_{11}}}{\sqrt{v_2}} & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,e^{-h\,\mathbf{ED}_{12}}}{\sqrt{v_2}} \\[10pt]
+				0 & 0 & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,e^{-h\,\mathbf{ED}_{12}}}{\sqrt{v_2}} & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,e^{-h\,\mathbf{ED}_{22}}}{\sqrt{v_2}} \\[10pt]
+				\dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,e^{-h\,\mathbf{ED}_{11}}}{\sqrt{v_2}} & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,e^{-h\,\mathbf{ED}_{12}}}{\sqrt{v_2}} & e^{-h\,\mathbf{ED}_{11}} & e^{-h\,\mathbf{ED}_{12}} \\[10pt]
+				\dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,e^{-h\,\mathbf{ED}_{12}}}{\sqrt{v_2}} & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,e^{-h\,\mathbf{ED}_{22}}}{\sqrt{v_2}} & e^{-h\,\mathbf{ED}_{12}} & e^{-h\,\mathbf{ED}_{22}}
+			\end{bmatrix} \\
+\\
+\dfrac{\partial \left(\boldsymbol{\Sigma}_{M} \otimes e^{-h\,\mathbf{ED}}\right)}{\partial \rho_{12}} &= \begin{bmatrix}
+				0 & 0 & \sqrt{v_1}\,\sqrt{v_2}\,e^{-h\,\mathbf{ED}_{11}} & \sqrt{v_1}\,\sqrt{v_2}\,e^{-h\,\mathbf{ED}_{12}} \\[5pt]
+				0 & 0 & \sqrt{v_1}\,\sqrt{v_2}\,e^{-h\,\mathbf{ED}_{12}} & \sqrt{v_1}\,\sqrt{v_2}\,e^{-h\,\mathbf{ED}_{22}} \\[5pt]
+				\sqrt{v_1}\,\sqrt{v_2}\,e^{-h\,\mathbf{ED}_{11}} & \sqrt{v_1}\,\sqrt{v_2}\,e^{-h\,\mathbf{ED}_{12}} & 0 & 0 \\[5pt]
+				\sqrt{v_1}\,\sqrt{v_2}\,e^{-h\,\mathbf{ED}_{12}} & \sqrt{v_1}\,\sqrt{v_2}\,e^{-h\,\mathbf{ED}_{22}} & 0 & 0
+			\end{bmatrix} \\
+\\
+\dfrac{\partial \left(\boldsymbol{\Sigma}_{M} \otimes e^{-h\,\mathbf{ED}}\right)}{\partial h} &= \begin{bmatrix}
+				-\mathbf{ED}_{11}\,v_1\,e^{-h\,\mathbf{ED}_{11}} & -\mathbf{ED}_{12}\,v_1\,e^{-h\,\mathbf{ED}_{12}} & -\mathbf{ED}_{11}\,\sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{ED}_{11}} & -\mathbf{ED}_{12}\,\sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{ED}_{12}} \\[5pt]
+				-\mathbf{ED}_{12}\,v_1\,e^{-h\,\mathbf{ED}_{12}} & -\mathbf{ED}_{22}\,v_1\,e^{-h\,\mathbf{ED}_{22}} & -\mathbf{ED}_{12}\,\sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{ED}_{12}} & -\mathbf{ED}_{22}\,\sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{ED}_{22}} \\[5pt]
+				-\mathbf{ED}_{11}\,\sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{ED}_{11}} & -\mathbf{ED}_{12}\,\sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{ED}_{12}} & -\mathbf{ED}_{11}\,v_2\,e^{-h\,\mathbf{ED}_{11}} & -\mathbf{ED}_{12}\,v_2\,e^{-h\,\mathbf{ED}_{12}} \\[5pt]
+				-\mathbf{ED}_{12}\,\sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{ED}_{12}} & -\mathbf{ED}_{22}\,\sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{ED}_{22}} & -\mathbf{ED}_{12}\,v_2\,e^{-h\,\mathbf{ED}_{12}} & -\mathbf{ED}_{22}\,v_2\,e^{-h\,\mathbf{ED}_{22}}
+			\end{bmatrix}.
+\end{split}
+$$
+
+Note that this readily generalizes to any number of managements or environments.
+The R function below automatically computes the covariance matrix $\boldsymbol{\Sigma}\_{M} \otimes e^{-h\,\mathbf{ED}}$ and its partial derivatives:
+```R
+# kappa[1] = variance for all environments within trait 1
+# kappa[2] = variance for all environments within trait 2
+# ...
+# kappa[p] = variance for all environments within trait p
+# kappa[p + 1] = correlation between trait 1 and trait 2
+# ...
+# kappa[p + ((p^2 - p) / 2)] = correlation between trait p - 1 and trait p
+# kappa[p + ((p^2 - p) / 2) + 1] = bandwidth
+
+vf <- function(order, kappa) {
+  # The correlation matrix of the traits:
+  q <- nrow(ED)
+  p <- order / q
+  Ct <- matrix(1, p, p)
+  Ct[upper.tri(Ct)] <- Ct[lower.tri(Ct)] <- kappa[(p + 1):(p + ((p^2 - p) / 2))]
+  
+  # The full covariance matrix:
+  S <- outer(sqrt(kappa[1:p]), sqrt(kappa[1:p]))
+  V <- kronecker(S * Ct, exp(-kappa[p + ((p^2 - p) / 2) + 1] * ED))
+  
+  # Derivatives wrt kappa[1:p] (variances):
+  varderivs <- vector("list", p)
+  for (dk in 1:p) {
+    I <- matrix(0, p, p)
+    I[dk,] <- I[, dk] <- 1
+    I <- kronecker(I, matrix(1, q, q))
+    tmp <- sqrt(kappa[1:p])
+    tmp[dk] <- 1 / tmp[dk]
+    tmp <- outer(tmp, tmp)
+    tmp[dk, dk] <- 1
+    deriv <- 0.5 * I * kronecker(tmp * Ct, exp(-kappa[p + ((p^2 - p) / 2) + 1] * ED))
+    deriv[((dk - 1) * q + 1):(dk * q), ((dk - 1) * q + 1):(dk * q)] <-
+      deriv[((dk - 1) * q + 1):(dk * q), ((dk - 1) * q + 1):(dk * q)] * 2
+    varderivs[[dk]] <- deriv
+  }
+  
+  # Derivatives wrt kappa[(p + 1):(p + ((p^2 - p) / 2))] (correlations):
+  corderivs <- vector("list", (p^2 - p) / 2)
+  for (dk in 1:((p^2 - p) / 2)) {
+    # Indicator matrix of where kappa[dk] is present:
+    I <- matrix(0, p, p)
+    I[upper.tri(I)][dk] <- I[lower.tri(I)][dk] <- 1
+    corderivs[[dk]] <- kronecker(S * I, exp(-kappa[p + ((p^2 - p) / 2) + 1] * ED))
+  }
+  
+  # Derivative wrt the bandwidth:
+  dbw <- kronecker(S * Ct, -ED * exp(-kappa[p + ((p^2 - p) / 2) + 1] * ED))
+  
+  
+  return(c(list(V), varderivs, corderivs, list(dbw)))
+}
+```
+and can be used with ASReml-R using the following code:
+```R
+p <- length(levels(data$Management)) # Number of managements
+
+init <- c(rep(0.1, p), rep(0.1, (p^2 - p) / 2), 0.1) # Initial values for the p variances, (p^2 - p) / 2 correlations, and bandwidth
+type <- c(rep("V", p), rep("R", (p^2 - p) / 2), "V") # Parameter types
+cons <- c(rep("P", p), rep("U", (p^2 - p) / 2), "P") # Constraints
+
+fit <- asreml(fixed = Y ~ -1 + ManagementEnvironment,
+              random = ~ own(ManagementEnvironment, "vf", init, type, cons):vm(Genotype, K),
+              residual = ~ units,
+              data = data)
+```
+In this case, the last variance component, ignoring variance components related to other random effects or the residual structure, corresponds to the bandwidth parameter.
 
 ## Multiple variance non-linear kernel (mvgk)
 Placeholder text.
 
-# R-package
+The R function below automatically computes the covariance matrix $\mathbf{s}\mathbf{s}^\top\left(\mathbf{C}\_{M} \otimes e^{-h\,\mathbf{ED}}\right)$ and its partial derivatives:
 ```R
-test
+# kappa[1] = variance for trait 1, environment 1
+# kappa[2] = variance for trait 1, environment 2
+# ...
+# kappa[p * q] = variance for trait p, environment q
+# kappa[p * q + 1] = correlation between trait 1 and trait 2
+# ...
+# kappa[p * q + ((p^2 - p) / 2)] = correlation between trait p - 1 and trait p
+# kappa[p * q + ((p^2 - p) / 2) + 1] = bandwidth
+# order = p * q
+
+vf <- function(order, kappa) {
+  # The correlation matrix of the traits:
+  q <- nrow(ED)
+  p <- order / q
+  Ct <- matrix(1, p, p)
+  Ct[upper.tri(Ct)] <- Ct[lower.tri(Ct)] <- kappa[(order + 1):(order + ((p^2 - p) / 2))]
+  
+  # The full covariance matrix:
+  S <- outer(sqrt(kappa[1:order]), sqrt(kappa[1:order]))
+  V <- S * kronecker(Ct, exp(-kappa[p * q + ((p^2 - p) / 2) + 1] * ED))
+  
+  # Derivatives wrt kappa[1:(p * q)] (variances):
+  varderivs <- vector("list", order)
+  for (dk in 1:order) {
+    I <- matrix(0, order, order)
+    I[dk,] <- I[, dk] <- 1
+    tmp <- sqrt(kappa[1:order])
+    tmp[dk] <- 1 / tmp[dk]
+    tmp <- outer(tmp, tmp)
+    tmp[dk, dk] <- 1
+    deriv <- 0.5 * I * tmp * kronecker(Ct, exp(-kappa[p * q + ((p^2 - p) / 2) + 1] * ED))
+    deriv[dk, dk] <- 1
+    varderivs[[dk]] <- deriv
+  }
+  
+  # Derivatives wrt kappa[(p + 1):(p + ((p^2 - p) / 2))] (correlations):
+  corderivs <- vector("list", (p^2 - p) / 2)
+  for (dk in 1:((p^2 - p) / 2)) {
+    # Indicator matrix of where kappa[dk] is present:
+    I <- matrix(0, p, p)
+    I[upper.tri(I)][dk] <- I[lower.tri(I)][dk] <- 1
+    corderivs[[dk]] <- S * kronecker(I, exp(-kappa[p * q + ((p^2 - p) / 2) + 1] * ED))
+  }
+  
+  # Derivative wrt the bandwidth:
+  dbw <- S * kronecker(Ct, -ED * exp(-kappa[p * q + ((p^2 - p) / 2) + 1] * ED))
+  
+  return(c(list(V), varderivs, corderivs, list(dbw)))
+}
+```
+and can be used with ASReml-R using the following code:
+```R
+p <- length(levels(data$Management)) # Number of managements
+q <- length(levels(data$Environment)) # Number of environments
+
+init <- c(rep(0.1, p * q), rep(0.1, (p^2 - p) / 2), 0.1) # Initial values for the p variances, (p^2 - p) / 2 correlations, and bandwidth
+type <- c(rep("V", p * q), rep("R", (p^2 - p) / 2), "V") # Parameter types
+cons <- c(rep("P", p * q), rep("U", (p^2 - p) / 2), "P") # Constraints
+
+fit <- asreml(fixed = Y ~ -1 + ManagementEnvironment,
+              random = ~ own(ManagementEnvironment, "vf", init, type, cons):vm(Genotype, K),
+              residual = ~ units,
+              data = data)
+```
+In this case, first variance component corresponds to the variance of the first environment within the first level of management, while the last variance component again corresponds to the bandwidth parameter.
+
+# R-package
+R-package that simplifies fitting these models somewhat can be installed using:
+```R
+devtools::install_github("KillianMelsen/cornfruit")
 ```
