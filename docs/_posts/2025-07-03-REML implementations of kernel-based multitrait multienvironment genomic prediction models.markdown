@@ -417,6 +417,7 @@ This type of non-linear kernel is often referred to as a Gaussian kernel.
 <img src="/assets/nonlinear.png" width="400" align="right">
 The graph on the right shows the effect of different bandwidth values on the correlations between environments for different squared Euclidian distances.
 Note that using a non-linear (Gaussian) kernel, only positive correlations between environments can be modeled.
+Also note that if we treat the bandwidth the same as a variance during estimation, we can end up with either a diagonal or main effects model for the G $\times$ E.
 
 ## Single variance non-linear kernel (svgk)
 Placeholder text.
