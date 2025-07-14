@@ -78,7 +78,7 @@ This works because when R cannot find referenced objects within the local enviro
     ```R
     C <- C[levels(data$Environment), levels(data$Environment)]
     ```
-Another option is to use the `cornfruit` package that provides wrappers around the functions taking care of point 1.
+Another option is to use the [cornfruit](https://github.com/KillianMelsen/cornfruit) package that provides wrappers around the functions taking care of point 1.
 See the end of this page for more information.
 
 # Linear kernels
