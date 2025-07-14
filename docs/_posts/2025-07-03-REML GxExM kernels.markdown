@@ -635,7 +635,21 @@ fit <- asreml(fixed = Y ~ -1 + ManagementEnvironment,
 In this case, first variance component corresponds to the variance of the first environment within the first level of management, while the last variance component again corresponds to the bandwidth parameter.
 
 # R-package
-R-package that simplifies fitting these models somewhat can be installed using:
+The R-package {\ttfamily cornfruit} simplifies fitting these models somewhat:
 ```R
+# Example using multiple variances and a Gaussian/non-linear kernel:
 devtools::install_github("KillianMelsen/cornfruit")
+vf <- cornfruit::mvgk(ED = readRDS("myDistanceMatrix.rds"))
+
+p <- length(levels(data$Management)) # Number of managements
+q <- length(levels(data$Environment)) # Number of environments
+
+init <- c(rep(0.1, p * q), rep(0.1, (p^2 - p) / 2)) # Initial values
+type <- c(rep("V", p * q), rep("R", (p^2 - p) / 2)) # Parameter types
+cons <- c(rep("P", p * q), rep("U", (p^2 - p) / 2)) # Constraints
+
+fit <- asreml(fixed = Y ~ -1 + ManagementEnvironment,
+              random = ~ own(ManagementEnvironment, "vf", init, type, cons):vm(Genotype, K),
+              residual = ~ units,
+              data = data)
 ```
