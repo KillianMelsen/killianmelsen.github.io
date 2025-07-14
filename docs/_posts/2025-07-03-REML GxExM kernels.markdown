@@ -427,7 +427,7 @@ Neither of these extremes are likely to result in good fits, so typically an int
 The **s**ingle **v**ariance non-linear, or **g**aussian, **k**ernel assumes the following distribution for $\mathbf{u}$:
 
 $$
-\mathbf{u} \sim \mathcal{N}\left(\mathbf{0}, \boldsymbol{\Sigma}_{M} \otimes e^{-h\,\mathbf{ED}}\right)
+\mathbf{u} \sim \mathcal{N}\left(\mathbf{0}, \boldsymbol{\Sigma}_{M} \otimes e^{-h\,\mathbf{ED}} \otimes \mathbf{K}\right)
 $$
 
 where $\mathbf{ED}$ is the squared Euclidian distance matrix of the environments and $h$ is the bandwidth parameter. The covariance matrix $\boldsymbol{\Sigma}\_{M}$ is unstructured and estimated like how ASReml-R would estimate a covariance matrix using `corgh()`. As a simple illustration, consider the case of two managements and two environments:
@@ -566,7 +566,7 @@ In this case, the last variance component, ignoring variance components related 
 ## Multiple variance non-linear kernel (mvgk)
 Placeholder text.
 
-The R function below automatically computes the covariance matrix $\mathbf{s}\mathbf{s}^\top\left(\mathbf{C}\_{M} \otimes e^{-h\,\mathbf{ED}}\right)$ and its partial derivatives:
+The R function below automatically computes the covariance matrix $\mathbf{s}\mathbf{s}^\top\circ\left(\mathbf{C}\_{M} \otimes e^{-h\,\mathbf{ED}}\right)$ and its partial derivatives:
 ```R
 # kappa[1] = variance for trait 1, environment 1
 # kappa[2] = variance for trait 1, environment 2
@@ -635,7 +635,7 @@ fit <- asreml(fixed = Y ~ -1 + ManagementEnvironment,
 In this case, first variance component corresponds to the variance of the first environment within the first level of management, while the last variance component again corresponds to the bandwidth parameter.
 
 # R-package
-The R-package {\ttfamily cornfruit} simplifies fitting these models somewhat:
+The R-package [cornfruit](https://github.com/KillianMelsen/cornfruit) simplifies fitting these models somewhat:
 ```R
 # Example using multiple variances and a Gaussian/non-linear kernel:
 devtools::install_github("KillianMelsen/cornfruit")
