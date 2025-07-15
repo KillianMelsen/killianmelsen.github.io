@@ -37,3 +37,13 @@ layout: base
   <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
 </article>
 <script src="/assets/scripts/copyCode.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const knownFunctions = ["kronecker", "crossprod", "tcrossprod"]; // add more here
+  document.querySelectorAll('.highlight .language-r .n').forEach(el => {
+    if (knownFunctions.includes(el.textContent)) {
+      el.classList.add('nf');
+    }
+  });
+});
+</script>
