@@ -75,7 +75,6 @@ Do not define `C` or `D` within the variance function.
 This works because when R cannot find referenced objects within the local environment of the function, it simply looks in the enclosing environment (the environment where the function was defined), where `C` or `D` exists (see [this page](http://adv-r.had.co.nz/Environments.html) for more information).
 
 2. The row- and column order of `C` and `D`, **must** match the order of the levels of the environment factor in the dataframe that is passed to ASReml-R:
-    {% include codeHeader.html %}
     ```r
     C <- C[levels(data$Environment), levels(data$Environment)]
     ```
