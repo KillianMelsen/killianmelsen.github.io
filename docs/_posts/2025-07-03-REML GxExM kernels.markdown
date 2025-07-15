@@ -77,9 +77,7 @@ This works because when R cannot find referenced objects within the local enviro
 2. The row- and column order of `C` and `D`, **must** match the order of the levels of the environment factor in the dataframe that is passed to ASReml-R:
     {% include codeHeader.html %}
     {% highlight r %}
-    <!-- <!-- ```R --> -->
     C <- C[levels(data$Environment), levels(data$Environment)]
-    <!-- ``` -->
     {% endhighlight %}
 Another option is to use the [cornfruit](https://github.com/KillianMelsen/cornfruit) package that provides wrappers around the functions taking care of point 1.
 See the end of this page for more information.
@@ -163,7 +161,6 @@ Note that this readily generalizes to any number of managements or environments.
 The R function below automatically computes the covariance matrix $\boldsymbol{\Sigma}\_M \otimes \mathbf{C}$ and its partial derivatives:
 {% include codeHeader.html %}
 {% highlight r %}
-<!-- ```R -->
 # kappa[1] = variance for all environments within management 1
 # kappa[2] = variance for all environments within management 2
 # ...
@@ -210,12 +207,10 @@ vf <- function(order, kappa) {
   
   return(c(list(V), varderivs, corderivs))
 }
-<!-- ``` -->
 {% endhighlight %}
 and can be used with ASReml-R using the following code:
 {% include codeHeader.html %}
 {% highlight r %}
-<!-- ```R -->
 p <- length(levels(data$Management)) # Number of managements
 
 init <- c(rep(0.1, p), rep(0.1, (p^2 - p) / 2)) # Initial values for the p variances and (p^2 - p) / 2 correlations
@@ -226,7 +221,6 @@ fit <- asreml(fixed = Y ~ -1 + ManagementEnvironment,
               random = ~ own(ManagementEnvironment, "vf", init, type, cons):vm(Genotype, K),
               residual = ~ units,
               data = data)
-<!-- ``` -->
 {% endhighlight %}
 assuming that `data` is a dataframe with columns containing the factor levels for `Management`, `Environment`, `Genotype`, and an extra column with the levels for a factor combining `Management` and `Environment` (`ManagementEnvironment`).
 Variance components can be retrieved as usual (`summary(fit)$varcomp`).
@@ -334,7 +328,6 @@ $$
 The R function below automatically computes the covariance matrix $\mathbf{s}\mathbf{s}^\top \circ \left(\mathbf{C}\_M \otimes \mathbf{C}\right)$ and its partial derivatives:
 {% include codeHeader.html %}
 {% highlight r %}
-<!-- ```R -->
 # kappa[1] = variance for management 1, environment 1
 # kappa[2] = variance for management 1, environment 2
 # ...
@@ -380,12 +373,10 @@ vf <- function(order, kappa) {
   
   return(c(list(V), varderivs, corderivs))
 }
-<!-- ``` -->
 {% endhighlight %}
 and can be used with ASReml-R using the following code:
 {% include codeHeader.html %}
 {% highlight r %}
-<!-- ```R -->
 p <- length(levels(data$Management)) # Number of managements
 q <- length(levels(data$Environment)) # Number of environments
 
@@ -397,7 +388,6 @@ fit <- asreml(fixed = Y ~ -1 + ManagementEnvironment,
               random = ~ own(ManagementEnvironment, "vf", init, type, cons):vm(Genotype, K),
               residual = ~ units,
               data = data)
-<!-- ``` -->
 {% endhighlight %}
 Note that in this case, the first variance component is the variance of the first environment within the first level of management.
 
@@ -512,7 +502,6 @@ Note that this readily generalizes to any number of managements or environments.
 The R function below automatically computes the covariance matrix $\boldsymbol{\Sigma}\_{M} \otimes e^{-h\,\mathbf{D}}$ and its partial derivatives:
 {% include codeHeader.html %}
 {% highlight r %}
-<!-- ```R -->
 # kappa[1] = variance for all environments within trait 1
 # kappa[2] = variance for all environments within trait 2
 # ...
@@ -564,12 +553,10 @@ vf <- function(order, kappa) {
   
   return(c(list(V), varderivs, corderivs, list(dbw)))
 }
-<!-- ``` -->
 {% endhighlight %}
 and can be used with ASReml-R using the following code:
 {% include codeHeader.html %}
 {% highlight r %}
-<!-- ```R -->
 p <- length(levels(data$Management)) # Number of managements
 
 init <- c(rep(0.1, p), rep(0.1, (p^2 - p) / 2), 0.1) # Initial values for the p variances, (p^2 - p) / 2 correlations, and bandwidth
@@ -580,7 +567,6 @@ fit <- asreml(fixed = Y ~ -1 + ManagementEnvironment,
               random = ~ own(ManagementEnvironment, "vf", init, type, cons):vm(Genotype, K),
               residual = ~ units,
               data = data)
-<!-- ``` -->
 {% endhighlight %}
 In this case, the last variance component, ignoring variance components related to other random effects or the residual structure, corresponds to the bandwidth parameter.
 
@@ -590,7 +576,6 @@ Placeholder text.
 The R function below automatically computes the covariance matrix $\mathbf{s}\mathbf{s}^\top\circ\left(\mathbf{C}\_{M} \otimes e^{-h\,\mathbf{D}}\right)$ and its partial derivatives:
 {% include codeHeader.html %}
 {% highlight r %}
-<!-- ```R -->
 # kappa[1] = variance for trait 1, environment 1
 # kappa[2] = variance for trait 1, environment 2
 # ...
@@ -640,12 +625,10 @@ vf <- function(order, kappa) {
   
   return(c(list(V), varderivs, corderivs, list(dbw)))
 }
-<!-- ``` -->
 {% endhighlight %}
 and can be used with ASReml-R using the following code:
 {% include codeHeader.html %}
 {% highlight r %}
-<!-- ```R -->
 p <- length(levels(data$Management)) # Number of managements
 q <- length(levels(data$Environment)) # Number of environments
 
@@ -657,7 +640,6 @@ fit <- asreml(fixed = Y ~ -1 + ManagementEnvironment,
               random = ~ own(ManagementEnvironment, "vf", init, type, cons):vm(Genotype, K),
               residual = ~ units,
               data = data)
-<!-- ``` -->
 {% endhighlight %}
 In this case, first variance component corresponds to the variance of the first environment within the first level of management, while the last variance component again corresponds to the bandwidth parameter.
 
@@ -665,7 +647,6 @@ In this case, first variance component corresponds to the variance of the first 
 The R-package [cornfruit](https://github.com/KillianMelsen/cornfruit) simplifies fitting these models somewhat:
 {% include codeHeader.html %}
 {% highlight r %}
-<!-- ```R -->
 # Example using multiple variances and a Gaussian/non-linear kernel:
 devtools::install_github("KillianMelsen/cornfruit")
 vf <- cornfruit::mvgk(D = readRDS("myDistanceMatrix.rds"))
@@ -681,5 +662,4 @@ fit <- asreml(fixed = Y ~ -1 + ManagementEnvironment,
               random = ~ own(ManagementEnvironment, "vf", init, type, cons):vm(Genotype, K),
               residual = ~ units,
               data = data)
-<!-- ``` -->
 {% endhighlight %}
