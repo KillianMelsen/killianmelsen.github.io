@@ -43,9 +43,12 @@ minima:
     - { platform: WUR, user_url: https://www.wur.nl/en/persons/killian-melsen.htm, title: Killian Melsen on WUR }
 
 markdown: kramdown
-kramdown:
-  syntax_highlighter: rouge
 highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    guess_lang: false
   
 plugins:
   - jekyll-feed
