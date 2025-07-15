@@ -39,7 +39,7 @@ layout: base
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   const knownFunctions = ["kronecker", "crossprod", "tcrossprod", "levels", "nrow", "matrix", "upper.tri", "lower.tri", "outer", "vector", "asreml", "own", "vm", "install_github", "mvgk"]; // add more here
-  document.querySelectorAll('.highlight .language-r .n').forEach(el => {
+  document.querySelectorAll('code span.n').forEach(el => {
     if (knownFunctions.includes(el.textContent)) {
       el.classList.add('nf');
     }
