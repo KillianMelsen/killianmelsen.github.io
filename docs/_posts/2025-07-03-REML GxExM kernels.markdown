@@ -159,7 +159,7 @@ $$
 Note that this readily generalizes to any number of managements or environments.
 The R function below automatically computes the covariance matrix $\boldsymbol{\Sigma}\_M \otimes \mathbf{C}$ and its partial derivatives:
 {% include codeHeader.html %}
-```R
+{% highlight r %}
 # kappa[1] = variance for all environments within management 1
 # kappa[2] = variance for all environments within management 2
 # ...
@@ -206,7 +206,7 @@ vf <- function(order, kappa) {
   
   return(c(list(V), varderivs, corderivs))
 }
-```
+{% endhighlight %}
 and can be used with ASReml-R using the following code:
 ```R
 p <- length(levels(data$Management)) # Number of managements
