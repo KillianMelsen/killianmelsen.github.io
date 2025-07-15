@@ -237,6 +237,12 @@
 /**
  * Posts
  */
+.highlighter-rouge,
+.highlight {
+  border: none;
+  box-shadow: none;
+}
+
 .code-header {
   display: flex;
   justify-content: flex-end; /* Aligns the button to the right */
@@ -253,7 +259,7 @@
   background-color: #ffecb3; /* Indigo-600 */
   color: #93a1a7;
   font-size: 0.875rem;
-  font-weight: 1000;
+  font-weight: 750;
   border: none;
   border-radius: 6px;
   cursor: pointer;
