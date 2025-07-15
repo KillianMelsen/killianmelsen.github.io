@@ -238,7 +238,18 @@
  * Posts
  */
 .copy-code-button {
-  display: block;
+  display: inline-block;
+  padding: 8px 14px;
+  margin: 4px 0;
+  background-color: #4f46e5; /* Indigo-600 */
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .post-header {
