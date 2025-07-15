@@ -18,7 +18,7 @@ $sol-is-dark: false !default;
 
 $sol-base03:   #002b36;  // 15 -12 -12
 $sol-base02:   #073642;  // 20 -12 -12
-$sol-base01:   #75b938;  // 45 -07 -07
+$sol-base01:   #586e75;  // 45 -07 -07
 $sol-base00:   #657b83;  // 50 -07 -07
 $sol-base0:    #839496;  // 60 -06 -03
 $sol-base1:    #93a1a1;  // 65 -05 -02
@@ -167,6 +167,7 @@ $table-border-color:    $sol-mono1 !default;
   .m     { color: #f95750 } // Literal.Number
   .p     { color: #f95750 } // Literal.Number
   .s     { color: #41c7b9 } // Literal.String
+  .n     { color: #75b938 } // Literal.Number
   .na    { color: $sol-cyan } // Name.Attribute
   .nb    { color: $sol-blue } // Name.Builtin
   .nc    { color: $sol-violet; font-weight: bold } // Name.Class
