@@ -159,6 +159,7 @@ $table-border-color:    $sol-mono1 !default;
   .gs    { color: $sol-mono01; font-weight: bold } // Generic.Strong
   .gu    { color: $sol-mono1 } // Generic.Subheading
   .gt    { color: $sol-red } // Generic.Traceback
+  .k     { color: #dbb32d; font-weight: bold } // Keyword.Constant
   .kc    { color: $sol-mono01; font-weight: bold } // Keyword.Constant
   .kd    { color: $sol-mono01; font-weight: bold } // Keyword.Declaration
   .kp    { color: $sol-mono01; font-weight: bold } // Keyword.Pseudo
@@ -167,7 +168,6 @@ $table-border-color:    $sol-mono1 !default;
   .m     { color: #f95750 } // Literal.Number
   .p     { color: #f95750 } // Literal.Number
   .s     { color: #41c7b9 } // Literal.String
-  .s2    { color: #41c7b9 } // Literal.String
   .n     { color: #75b938 } // Literal.Number
   .na    { color: $sol-cyan } // Name.Attribute
   .nb    { color: $sol-blue } // Name.Builtin
@@ -188,7 +188,7 @@ $table-border-color:    $sol-mono1 !default;
   .sb    { color: $sol-magenta } // Literal.String.Backtick
   .sc    { color: $sol-magenta } // Literal.String.Char
   .sd    { color: $sol-magenta } // Literal.String.Doc
-  .s2    { color: $sol-magenta } // Literal.String.Double
+  .s2    { color: #41c7b9 } // Literal.String.Double
   .se    { color: $sol-magenta } // Literal.String.Escape
   .sh    { color: $sol-magenta } // Literal.String.Heredoc
   .si    { color: $sol-magenta } // Literal.String.Interpol
