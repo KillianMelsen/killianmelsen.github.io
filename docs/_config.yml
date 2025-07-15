@@ -33,7 +33,7 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 #theme: minima
 remote_theme: jekyll/minima
 minima:
-  skin: classic
+  skin: solarized
   #skin: dark
   #skin: auto
   social_links:
