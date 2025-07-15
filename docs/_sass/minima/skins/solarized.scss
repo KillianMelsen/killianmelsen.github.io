@@ -168,14 +168,14 @@ $table-border-color:    $sol-mono1 !default;
   .m     { color: #f95750 } // Literal.Number
   .p     { color: #f95750 } // Literal.Number
   .s     { color: #41c7b9 } // Literal.String
-  .n     { color: #75b938 } // Literal.Number
+  .n     { color: #4695f7 } // Literal.Number
   .na    { color: $sol-cyan } // Name.Attribute
   .nb    { color: $sol-blue } // Name.Builtin
   .nc    { color: $sol-violet; font-weight: bold } // Name.Class
   .no    { color: $sol-cyan } // Name.Constant
   .ni    { color: $sol-violet } // Name.Entity
   .ne    { color: $sol-violet; font-weight: bold } // Name.Exception
-  .nf    { color: $sol-blue; font-weight: bold } // Name.Function
+  .nf    { color: #75b938; font-weight: bold } // Name.Function
   .nn    { color: $sol-mono00 } // Name.Namespace
   .nt    { color: $sol-blue } // Name.Tag
   .nv    { color: $sol-cyan } // Name.Variable

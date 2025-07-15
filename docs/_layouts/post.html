@@ -39,10 +39,20 @@ layout: base
 <script src="/assets/scripts/copyCode.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-  const knownFunctions = ["kronecker", "crossprod", "tcrossprod"]; // add more here
+  const knownFunctions = ["kronecker", "crossprod", "tcrossprod", "levels", "nrow", "matrix", "upper.tri", "lower.tri", "outer", "vector", "asreml", "own", "vm", "install_github", "mvgk"]; // add more here
   document.querySelectorAll('.highlight .language-r .n').forEach(el => {
     if (knownFunctions.includes(el.textContent)) {
       el.classList.add('nf');
+    }
+  });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const knownFunctions = ["devtools", "cornfruit"]; // add more here
+  document.querySelectorAll('.highlight .language-r .n').forEach(el => {
+    if (knownFunctions.includes(el.textContent)) {
+      el.classList.add('k');
     }
   });
 });
