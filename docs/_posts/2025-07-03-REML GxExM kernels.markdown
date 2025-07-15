@@ -80,7 +80,7 @@ This works because when R cannot find referenced objects within the local enviro
 C <- C[levels(data$Environment), levels(data$Environment)]
 ```
 
-Another option is to use the [cornfruit](https://github.com/KillianMelsen/cornfruit) package that provides wrappers around the functions taking care of point 1.
+Another option is to use the [cornfruit](https://github.com/KillianMelsen/cornfruit) package that provides wrappers around the functions, taking care of point 1.
 See the end of this page for more information.
 
 # Linear kernels
@@ -111,14 +111,14 @@ $$
 				\sqrt{v_1}\,\sqrt{v_2}\,\rho_{12} & v_2
 			\end{bmatrix} \otimes \begin{bmatrix}
 				\mathbf{C}_{11} & \mathbf{C}_{12} \\[5pt]
-				\mathbf{C}_{12} & \mathbf{C}_{22}
+				\mathbf{C}_{21} & \mathbf{C}_{22}
 			\end{bmatrix} \\
 			\\
 			&=\begin{bmatrix}
 				v_1\,\mathbf{C}_{11} & v_1\,\mathbf{C}_{12} & \sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,\mathbf{C}_{11} & \sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,\mathbf{C}_{12} \\[5pt]
-				v_1\,\mathbf{C}_{12} & v_1\,\mathbf{C}_{22} & \sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,\mathbf{C}_{12} & \sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,\mathbf{C}_{22} \\[5pt]
+				v_1\,\mathbf{C}_{21} & v_1\,\mathbf{C}_{22} & \sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,\mathbf{C}_{21} & \sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,\mathbf{C}_{22} \\[5pt]
 				\sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,\mathbf{C}_{11} & \sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,\mathbf{C}_{12} & v_2\,\mathbf{C}_{11} & v_2\,\mathbf{C}_{12} \\[5pt]
-				\sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,\mathbf{C}_{12} & \sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,\mathbf{C}_{22} & v_2\,\mathbf{C}_{12} & v_2\,\mathbf{C}_{22}
+				\sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,\mathbf{C}_{21} & \sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,\mathbf{C}_{22} & v_2\,\mathbf{C}_{21} & v_2\,\mathbf{C}_{22}
 			\end{bmatrix}.
 			\end{split}
 $$
@@ -137,23 +137,23 @@ $$
 \begin{split}
 \dfrac{\partial \left(\boldsymbol{\Sigma}_M \otimes \mathbf{C}\right)}{\partial v_1} &= \begin{bmatrix}
 				\mathbf{C}_{11} & \mathbf{C}_{12} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,\mathbf{C}_{11}}{\sqrt{v_1}} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,\mathbf{C}_{12}}{\sqrt{v_1}} \\[10pt]
-				\mathbf{C}_{12} & \mathbf{C}_{22} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,\mathbf{C}_{12}}{\sqrt{v_1}} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,\mathbf{C}_{22}}{\sqrt{v_1}} \\[10pt]
+				\mathbf{C}_{21} & \mathbf{C}_{22} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,\mathbf{C}_{21}}{\sqrt{v_1}} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,\mathbf{C}_{22}}{\sqrt{v_1}} \\[10pt]
 				\dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,\mathbf{C}_{11}}{\sqrt{v_1}} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,\mathbf{C}_{12}}{\sqrt{v_1}} & 0 & 0 \\[10pt]
-				\dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,\mathbf{C}_{12}}{\sqrt{v_1}} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,\mathbf{C}_{22}}{\sqrt{v_1}} & 0 & 0
+				\dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,\mathbf{C}_{21}}{\sqrt{v_1}} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,\mathbf{C}_{22}}{\sqrt{v_1}} & 0 & 0
 			\end{bmatrix} \\
 \\
 \dfrac{\partial \left(\boldsymbol{\Sigma}_M \otimes \mathbf{C}\right)}{\partial v_2} &= \begin{bmatrix}
 				0 & 0 & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,\mathbf{C}_{11}}{\sqrt{v_2}} & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,\mathbf{C}_{12}}{\sqrt{v_2}} \\[10pt]
-				0 & 0 & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,\mathbf{C}_{12}}{\sqrt{v_2}} & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,\mathbf{C}_{22}}{\sqrt{v_2}} \\[10pt]
+				0 & 0 & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,\mathbf{C}_{21}}{\sqrt{v_2}} & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,\mathbf{C}_{22}}{\sqrt{v_2}} \\[10pt]
 				\dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,\mathbf{C}_{11}}{\sqrt{v_2}} & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,\mathbf{C}_{12}}{\sqrt{v_2}} & \mathbf{C}_{11} & \mathbf{C}_{12} \\[10pt]
-				\dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,\mathbf{C}_{12}}{\sqrt{v_2}} & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,\mathbf{C}_{22}}{\sqrt{v_2}} & \mathbf{C}_{12} & \mathbf{C}_{22}
+				\dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,\mathbf{C}_{21}}{\sqrt{v_2}} & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,\mathbf{C}_{22}}{\sqrt{v_2}} & \mathbf{C}_{21} & \mathbf{C}_{22}
 			\end{bmatrix} \\
 \\
 \dfrac{\partial \left(\boldsymbol{\Sigma}_M \otimes \mathbf{C}\right)}{\partial \rho_{12}} &= \begin{bmatrix}
 				0 & 0 & \sqrt{v_1}\,\sqrt{v_2}\,\mathbf{C}_{11} & \sqrt{v_1}\,\sqrt{v_2}\,\mathbf{C}_{12} \\[5pt]
-				0 & 0 & \sqrt{v_1}\,\sqrt{v_2}\,\mathbf{C}_{12} & \sqrt{v_1}\,\sqrt{v_2}\,\mathbf{C}_{22} \\[5pt]
+				0 & 0 & \sqrt{v_1}\,\sqrt{v_2}\,\mathbf{C}_{21} & \sqrt{v_1}\,\sqrt{v_2}\,\mathbf{C}_{22} \\[5pt]
 				\sqrt{v_1}\,\sqrt{v_2}\,\mathbf{C}_{11} & \sqrt{v_1}\,\sqrt{v_2}\,\mathbf{C}_{12} & 0 & 0 \\[5pt]
-				\sqrt{v_1}\,\sqrt{v_2}\,\mathbf{C}_{12} & \sqrt{v_1}\,\sqrt{v_2}\,\mathbf{C}_{22} & 0 & 0
+				\sqrt{v_1}\,\sqrt{v_2}\,\mathbf{C}_{21} & \sqrt{v_1}\,\sqrt{v_2}\,\mathbf{C}_{22} & 0 & 0
 			\end{bmatrix}.
 \end{split}
 $$
@@ -253,7 +253,7 @@ $$
 					\rho_{12} & 1
 				\end{bmatrix} \otimes \begin{bmatrix}
 					\mathbf{C}_{11} & \mathbf{C}_{12} \\[5pt]
-					\mathbf{C}_{12} & \mathbf{C}_{22}
+					\mathbf{C}_{21} & \mathbf{C}_{22}
 				\end{bmatrix}\right) \\
                 \\
                 &=\begin{bmatrix}
@@ -263,16 +263,16 @@ $$
 					\sqrt{v_1}\,\sqrt{v_4} & \sqrt{v_2}\,\sqrt{v_4} & \sqrt{v_3}\,\sqrt{v_4} & v_4
 				\end{bmatrix} \circ \begin{bmatrix}
                     \mathbf{C}_{11} & \mathbf{C}_{12} & \rho_{12}\,\mathbf{C}_{11} & \rho_{12}\,\mathbf{C}_{12} \\[5pt]
-                    \mathbf{C}_{12} & \mathbf{C}_{22} & \rho_{12}\,\mathbf{C}_{12} & \rho_{12}\,\mathbf{C}_{22} \\[5pt]
+                    \mathbf{C}_{21} & \mathbf{C}_{22} & \rho_{12}\,\mathbf{C}_{21} & \rho_{12}\,\mathbf{C}_{22} \\[5pt]
                     \rho_{12}\,\mathbf{C}_{11} & \rho_{12}\,\mathbf{C}_{12} & \mathbf{C}_{11} & \mathbf{C}_{12} \\[5pt]
-                    \rho_{12}\,\mathbf{C}_{12} & \rho_{12}\,\mathbf{C}_{22} & \mathbf{C}_{12} & \mathbf{C}_{22}
+                    \rho_{12}\,\mathbf{C}_{21} & \rho_{12}\,\mathbf{C}_{22} & \mathbf{C}_{21} & \mathbf{C}_{22}
 				\end{bmatrix} \\
 				\\
 				&=\begin{bmatrix}
 					v_1\,\mathbf{C}_{11} & \sqrt{v_1}\,\sqrt{v_2}\,\mathbf{C}_{12} & \sqrt{v_1}\,\sqrt{v_3}\,\rho_{12}\,\mathbf{C}_{11} & \sqrt{v_1}\,\sqrt{v_4}\,\rho_{12}\,\mathbf{C}_{12} \\[5pt]
-					\sqrt{v_1}\,\sqrt{v_2}\,\mathbf{C}_{12} & v_2\,\mathbf{C}_{22} & \sqrt{v_2}\,\sqrt{v_3}\,\rho_{12}\,\mathbf{C}_{12} & \sqrt{v_2}\,\sqrt{v_4}\,\rho_{12}\,\mathbf{C}_{22} \\[5pt]
+					\sqrt{v_1}\,\sqrt{v_2}\,\mathbf{C}_{21} & v_2\,\mathbf{C}_{22} & \sqrt{v_2}\,\sqrt{v_3}\,\rho_{12}\,\mathbf{C}_{21} & \sqrt{v_2}\,\sqrt{v_4}\,\rho_{12}\,\mathbf{C}_{22} \\[5pt]
 					\sqrt{v_1}\,\sqrt{v_3}\,\rho_{12}\,\mathbf{C}_{11} & \sqrt{v_2}\,\sqrt{v_3}\,\rho_{12}\,\mathbf{C}_{12} & v_3\,\mathbf{C}_{11} & \sqrt{v_3}\,\sqrt{v_4}\,\mathbf{C}_{12} \\[5pt]
-					\sqrt{v_1}\,\sqrt{v_4}\,\rho_{12}\,\mathbf{C}_{12} & \sqrt{v_2}\,\sqrt{v_4}\,\rho_{12}\,\mathbf{C}_{22} & \sqrt{v_3}\,\sqrt{v_4}\,\mathbf{C}_{12} & v_4\,\mathbf{C}_{22}
+					\sqrt{v_1}\,\sqrt{v_4}\,\rho_{12}\,\mathbf{C}_{21} & \sqrt{v_2}\,\sqrt{v_4}\,\rho_{12}\,\mathbf{C}_{22} & \sqrt{v_3}\,\sqrt{v_4}\,\mathbf{C}_{21} & v_4\,\mathbf{C}_{22}
 				\end{bmatrix}.
 			\end{split}
 $$
@@ -291,37 +291,37 @@ $$
 \begin{split}
 \dfrac{\partial \left(\mathbf{s}\mathbf{s}^\top \circ \left(\mathbf{C}_M \otimes \mathbf{C}\right)\right)}{\partial v_1} &= \begin{bmatrix}
             \mathbf{C}_{11} & \dfrac{0.5\,\sqrt{v_2}\,\mathbf{C}_{12}}{\sqrt{v_1}} & \dfrac{0.5\,\sqrt{v_3}\,\rho_{12}\,\mathbf{C}_{11}}{\sqrt{v_1}} & \dfrac{0.5\,\sqrt{v_4}\,\rho_{12}\,\mathbf{C}_{12}}{\sqrt{v_1}} \\[10pt]
-            \dfrac{0.5\,\sqrt{v_2}\,\mathbf{C}_{12}}{\sqrt{v_1}} & 0 & 0 & 0 \\[10pt]
+            \dfrac{0.5\,\sqrt{v_2}\,\mathbf{C}_{21}}{\sqrt{v_1}} & 0 & 0 & 0 \\[10pt]
             \dfrac{0.5\,\sqrt{v_3}\,\rho_{12}\,\mathbf{C}_{11}}{\sqrt{v_1}} & 0 & 0 & 0 \\[10pt]
-            \dfrac{0.5\,\sqrt{v_4}\,\rho_{12}\,\mathbf{C}_{12}}{\sqrt{v_1}} & 0 & 0 & 0
+            \dfrac{0.5\,\sqrt{v_4}\,\rho_{12}\,\mathbf{C}_{21}}{\sqrt{v_1}} & 0 & 0 & 0
         \end{bmatrix} \\
 \\
 \dfrac{\partial \left(\mathbf{s}\mathbf{s}^\top \circ \left(\mathbf{C}_M \otimes \mathbf{C}\right)\right)}{\partial v_2} &= \begin{bmatrix}
 				0 & \dfrac{0.5\,\sqrt{v_1}\,\mathbf{C}_{12}}{\sqrt{v_2}} & 0 & 0 \\[10pt]
-				\dfrac{0.5\,\sqrt{v_1}\,\mathbf{C}_{12}}{\sqrt{v_2}} & \mathbf{C}_{22} & \dfrac{0.5\,\sqrt{v_3}\,\rho_{12}\,\mathbf{C}_{12}}{\sqrt{v_2}} & \dfrac{0.5\,\sqrt{v_4}\,\rho_{12}\,\mathbf{C}_{22}}{\sqrt{v_2}} \\[10pt]
+				\dfrac{0.5\,\sqrt{v_1}\,\mathbf{C}_{21}}{\sqrt{v_2}} & \mathbf{C}_{22} & \dfrac{0.5\,\sqrt{v_3}\,\rho_{12}\,\mathbf{C}_{21}}{\sqrt{v_2}} & \dfrac{0.5\,\sqrt{v_4}\,\rho_{12}\,\mathbf{C}_{22}}{\sqrt{v_2}} \\[10pt]
 				0 & \dfrac{0.5\,\sqrt{v_3}\,\rho_{12}\,\mathbf{C}_{12}}{\sqrt{v_2}} & 0 & 0 \\[10pt]
 				0 & \dfrac{0.5\,\sqrt{v_4}\,\rho_{12}\,\mathbf{C}_{22}}{\sqrt{v_2}} & 0 & 0
 			\end{bmatrix} \\
 \\
 \dfrac{\partial \left(\mathbf{s}\mathbf{s}^\top \circ \left(\mathbf{C}_M \otimes \mathbf{C}\right)\right)}{\partial v_3} &= \begin{bmatrix}
 				0 & 0 & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,\mathbf{C}_{11}}{\sqrt{v_3}} & 0 \\[10pt]
-				0 & 0 & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,\mathbf{C}_{12}}{\sqrt{v_3}} & 0 \\[10pt]
+				0 & 0 & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,\mathbf{C}_{21}}{\sqrt{v_3}} & 0 \\[10pt]
 				\dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,\mathbf{C}_{11}}{\sqrt{v_3}} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,\mathbf{C}_{12}}{\sqrt{v_3}} & \mathbf{C}_{11} & \dfrac{0.5\,\sqrt{v_4}\,\mathbf{C}_{12}}{\sqrt{v_3}} \\[10pt]
-				0 & 0 & \dfrac{0.5\,\sqrt{v_4}\,\mathbf{C}_{12}}{\sqrt{v_3}} & 0
+				0 & 0 & \dfrac{0.5\,\sqrt{v_4}\,\mathbf{C}_{21}}{\sqrt{v_3}} & 0
 			\end{bmatrix} \\
 \\
 \dfrac{\partial \left(\mathbf{s}\mathbf{s}^\top \circ \left(\mathbf{C}_M \otimes \mathbf{C}\right)\right)}{\partial v_4} &= \begin{bmatrix}
 				0 & 0 & 0 & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,\mathbf{C}_{12}}{\sqrt{v_4}} \\[10pt]
 				0 & 0 & 0 & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,\mathbf{C}_{22}}{\sqrt{v_4}} \\[10pt]
 				0 & 0 & 0 & \dfrac{0.5\,\sqrt{v_3}\,\mathbf{C}_{12}}{\sqrt{v_4}} \\[10pt]
-				\dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,\mathbf{C}_{12}}{\sqrt{v_4}} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,\mathbf{C}_{22}}{\sqrt{v_4}} & \dfrac{0.5\,\sqrt{v_3}\,\mathbf{C}_{12}}{\sqrt{v_4}} & \mathbf{C}_{22}
+				\dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,\mathbf{C}_{21}}{\sqrt{v_4}} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,\mathbf{C}_{22}}{\sqrt{v_4}} & \dfrac{0.5\,\sqrt{v_3}\,\mathbf{C}_{21}}{\sqrt{v_4}} & \mathbf{C}_{22}
 			\end{bmatrix} \\
 \\
 \dfrac{\partial \left(\mathbf{s}\mathbf{s}^\top \circ \left(\mathbf{C}_M \otimes \mathbf{C}\right)\right)}{\partial \rho_{12}} &= \begin{bmatrix}
 				0 & 0 & \sqrt{v_1}\,\sqrt{v_3}\,\mathbf{C}_{11} & \sqrt{v_1}\,\sqrt{v_4}\,\mathbf{C}_{12} \\[10pt]
-				0 & 0 & \sqrt{v_2}\,\sqrt{v_3}\,\mathbf{C}_{12} & \sqrt{v_2}\,\sqrt{v_4}\,\mathbf{C}_{22} \\[10pt]
+				0 & 0 & \sqrt{v_2}\,\sqrt{v_3}\,\mathbf{C}_{21} & \sqrt{v_2}\,\sqrt{v_4}\,\mathbf{C}_{22} \\[10pt]
 				\sqrt{v_1}\,\sqrt{v_3}\,\mathbf{C}_{11} & \sqrt{v_2}\,\sqrt{v_3}\,\mathbf{C}_{12} & 0 & 0 \\[10pt]
-				\sqrt{v_1}\,\sqrt{v_4}\,\mathbf{C}_{12} & \sqrt{v_2}\,\sqrt{v_4}\,\mathbf{C}_{22} & 0 & 0
+				\sqrt{v_1}\,\sqrt{v_4}\,\mathbf{C}_{21} & \sqrt{v_2}\,\sqrt{v_4}\,\mathbf{C}_{22} & 0 & 0
 			\end{bmatrix}.
 \end{split}
 $$
@@ -407,7 +407,7 @@ $$
 \mathbf{D} = \begin{bmatrix}
     \mathbf{D}_{11} & \dots & \mathbf{D}_{1q} \\
     \vdots & \ddots & \vdots \\
-    \mathbf{D}_{1q} & \dots & \mathbf{D}_{qq}
+    \mathbf{D}_{q1} & \dots & \mathbf{D}_{qq}
 \end{bmatrix},
 $$
 
@@ -445,14 +445,14 @@ $$
 				\sqrt{v_1}\;\sqrt{v_2}\,\rho_{12} & v_2
 			\end{bmatrix} \otimes \begin{bmatrix}
 				e^{-h\,\mathbf{D}_{11}} & e^{-h\,\mathbf{D}_{12}} \\[5pt]
-				e^{-h\,\mathbf{D}_{12}} & e^{-h\,\mathbf{D}_{22}}
+				e^{-h\,\mathbf{D}_{21}} & e^{-h\,\mathbf{D}_{22}}
 			\end{bmatrix} \\
 			\\
 			&=\begin{bmatrix}
 				v_1\,e^{-h\,\mathbf{D}_{11}} & v_1\,e^{-h\,\mathbf{D}_{12}} &  \sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{11}} & \sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{12}} \\[5pt]
-				v_1\,e^{-h\,\mathbf{D}_{12}} & v_1\,e^{-h\,\mathbf{D}_{22}} & \sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{12}} & \sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{22}} \\[5pt]
+				v_1\,e^{-h\,\mathbf{D}_{21}} & v_1\,e^{-h\,\mathbf{D}_{22}} & \sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{21}} & \sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{22}} \\[5pt]
 				\sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{11}} & \sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{12}} & v_2\,e^{-h\,\mathbf{D}_{11}} & v_2\,e^{-h\,\mathbf{D}_{12}} \\[5pt]
-				\sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{12}} & \sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{22}} & v_2\,e^{-h\,\mathbf{D}_{12}} & v_2\,e^{-h\,\mathbf{D}_{22}}
+				\sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{21}} & \sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{22}} & v_2\,e^{-h\,\mathbf{D}_{21}} & v_2\,e^{-h\,\mathbf{D}_{22}}
 			\end{bmatrix}.
 			\end{split}
 $$
@@ -471,30 +471,30 @@ $$
 \begin{split}
 \dfrac{\partial \left(\boldsymbol{\Sigma}_{M} \otimes e^{-h\,\mathbf{D}}\right)}{\partial v_1} &= \begin{bmatrix}
 				e^{-h\,\mathbf{D}_{11}} & e^{-h\,\mathbf{D}_{12}} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{11}}}{\sqrt{v_1}} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{12}}}{\sqrt{v_1}} \\[10pt]
-				e^{-h\,\mathbf{D}_{12}} & e^{-h\,\mathbf{D}_{22}} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{12}}}{\sqrt{v_1}} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{22}}}{\sqrt{v_1}} \\[10pt]
+				e^{-h\,\mathbf{D}_{21}} & e^{-h\,\mathbf{D}_{22}} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{21}}}{\sqrt{v_1}} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{22}}}{\sqrt{v_1}} \\[10pt]
 				\dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{11}}}{\sqrt{v_1}} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{12}}}{\sqrt{v_1}} & 0 & 0 \\[10pt]
-				\dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{12}}}{\sqrt{v_1}} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{22}}}{\sqrt{v_1}} & 0 & 0
+				\dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{21}}}{\sqrt{v_1}} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{22}}}{\sqrt{v_1}} & 0 & 0
 			\end{bmatrix} \\
 \\
 \dfrac{\partial \left(\boldsymbol{\Sigma}_{M} \otimes e^{-h\,\mathbf{D}}\right)}{\partial v_2} &= \begin{bmatrix}
 				0 & 0 & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,e^{-h\,\mathbf{D}_{11}}}{\sqrt{v_2}} & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,e^{-h\,\mathbf{D}_{12}}}{\sqrt{v_2}} \\[10pt]
-				0 & 0 & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,e^{-h\,\mathbf{D}_{12}}}{\sqrt{v_2}} & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,e^{-h\,\mathbf{D}_{22}}}{\sqrt{v_2}} \\[10pt]
+				0 & 0 & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,e^{-h\,\mathbf{D}_{21}}}{\sqrt{v_2}} & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,e^{-h\,\mathbf{D}_{22}}}{\sqrt{v_2}} \\[10pt]
 				\dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,e^{-h\,\mathbf{D}_{11}}}{\sqrt{v_2}} & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,e^{-h\,\mathbf{D}_{12}}}{\sqrt{v_2}} & e^{-h\,\mathbf{D}_{11}} & e^{-h\,\mathbf{D}_{12}} \\[10pt]
-				\dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,e^{-h\,\mathbf{D}_{12}}}{\sqrt{v_2}} & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,e^{-h\,\mathbf{D}_{22}}}{\sqrt{v_2}} & e^{-h\,\mathbf{D}_{12}} & e^{-h\,\mathbf{D}_{22}}
+				\dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,e^{-h\,\mathbf{D}_{21}}}{\sqrt{v_2}} & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,e^{-h\,\mathbf{D}_{22}}}{\sqrt{v_2}} & e^{-h\,\mathbf{D}_{12}} & e^{-h\,\mathbf{D}_{22}}
 			\end{bmatrix} \\
 \\
 \dfrac{\partial \left(\boldsymbol{\Sigma}_{M} \otimes e^{-h\,\mathbf{D}}\right)}{\partial \rho_{12}} &= \begin{bmatrix}
 				0 & 0 & \sqrt{v_1}\,\sqrt{v_2}\,e^{-h\,\mathbf{D}_{11}} & \sqrt{v_1}\,\sqrt{v_2}\,e^{-h\,\mathbf{D}_{12}} \\[5pt]
-				0 & 0 & \sqrt{v_1}\,\sqrt{v_2}\,e^{-h\,\mathbf{D}_{12}} & \sqrt{v_1}\,\sqrt{v_2}\,e^{-h\,\mathbf{D}_{22}} \\[5pt]
+				0 & 0 & \sqrt{v_1}\,\sqrt{v_2}\,e^{-h\,\mathbf{D}_{21}} & \sqrt{v_1}\,\sqrt{v_2}\,e^{-h\,\mathbf{D}_{22}} \\[5pt]
 				\sqrt{v_1}\,\sqrt{v_2}\,e^{-h\,\mathbf{D}_{11}} & \sqrt{v_1}\,\sqrt{v_2}\,e^{-h\,\mathbf{D}_{12}} & 0 & 0 \\[5pt]
-				\sqrt{v_1}\,\sqrt{v_2}\,e^{-h\,\mathbf{D}_{12}} & \sqrt{v_1}\,\sqrt{v_2}\,e^{-h\,\mathbf{D}_{22}} & 0 & 0
+				\sqrt{v_1}\,\sqrt{v_2}\,e^{-h\,\mathbf{D}_{21}} & \sqrt{v_1}\,\sqrt{v_2}\,e^{-h\,\mathbf{D}_{22}} & 0 & 0
 			\end{bmatrix} \\
 \\
 \dfrac{\partial \left(\boldsymbol{\Sigma}_{M} \otimes e^{-h\,\mathbf{D}}\right)}{\partial h} &= \begin{bmatrix}
 				-\mathbf{D}_{11}\,v_1\,e^{-h\,\mathbf{D}_{11}} & -\mathbf{D}_{12}\,v_1\,e^{-h\,\mathbf{D}_{12}} & -\mathbf{D}_{11}\,\sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{11}} & -\mathbf{D}_{12}\,\sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{12}} \\[5pt]
-				-\mathbf{D}_{12}\,v_1\,e^{-h\,\mathbf{D}_{12}} & -\mathbf{D}_{22}\,v_1\,e^{-h\,\mathbf{D}_{22}} & -\mathbf{D}_{12}\,\sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{12}} & -\mathbf{D}_{22}\,\sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{22}} \\[5pt]
+				-\mathbf{D}_{21}\,v_1\,e^{-h\,\mathbf{D}_{21}} & -\mathbf{D}_{22}\,v_1\,e^{-h\,\mathbf{D}_{22}} & -\mathbf{D}_{21}\,\sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{21}} & -\mathbf{D}_{22}\,\sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{22}} \\[5pt]
 				-\mathbf{D}_{11}\,\sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{11}} & -\mathbf{D}_{12}\,\sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{12}} & -\mathbf{D}_{11}\,v_2\,e^{-h\,\mathbf{D}_{11}} & -\mathbf{D}_{12}\,v_2\,e^{-h\,\mathbf{D}_{12}} \\[5pt]
-				-\mathbf{D}_{12}\,\sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{12}} & -\mathbf{D}_{22}\,\sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{22}} & -\mathbf{D}_{12}\,v_2\,e^{-h\,\mathbf{D}_{12}} & -\mathbf{D}_{22}\,v_2\,e^{-h\,\mathbf{D}_{22}}
+				-\mathbf{D}_{21}\,\sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{21}} & -\mathbf{D}_{22}\,\sqrt{v_1}\,\sqrt{v_2}\,\rho_{12}\,e^{-h\,\mathbf{D}_{22}} & -\mathbf{D}_{21}\,v_2\,e^{-h\,\mathbf{D}_{21}} & -\mathbf{D}_{22}\,v_2\,e^{-h\,\mathbf{D}_{22}}
 			\end{bmatrix}.
 \end{split}
 $$
@@ -572,7 +572,109 @@ fit <- asreml(fixed = Y ~ -1 + ManagementEnvironment,
 In this case, the last variance component, ignoring variance components related to other random effects or the residual structure, corresponds to the bandwidth parameter.
 
 ## Multiple variance non-linear kernel (mvgk)
-Placeholder text.
+Finally, the **m**ultiple **v**ariance non-linear, or **g**aussian, **k**ernel assumes the following distribution for $\mathbf{u}$:
+
+$$
+\mathbf{u} \sim \mathcal{N}\left(\mathbf{0}, \mathbf{s}\mathbf{s}^\top \circ \left(\mathbf{C}_{M} \otimes e^{-h\,\mathbf{D}}\right) \otimes \mathbf{K}\right)
+$$
+
+where $\mathbf{D}$ is the matrix containing squared Euclidian distances and $h$ is the bandwidth. The correlation matrix $\mathbf{C}\_{M}$ is again unstructured and estimated like how ASReml-R would estimate a correlation matrix using `corg()`.
+As before, the vector $\mathbf{s}$ contains the standard deviations for each E $\times$ M combination.
+As a simple illustration, consider once more the case of two managements and two environments:
+
+$$
+\begin{split}
+				\mathbf{s}\mathbf{s}^\top \circ \left(\mathbf{C}_M \otimes e^{-h\mathbf{D}}\right) &= \begin{bmatrix}
+                    \sqrt{v_1} \\[5pt]
+                    \sqrt{v_2} \\[5pt]
+                    \sqrt{v_3} \\[5pt]
+                    \sqrt{v_4}
+                \end{bmatrix} \begin{bmatrix}
+                    \sqrt{v_1}\,\,\,\sqrt{v_2}\,\,\,\sqrt{v_3}\,\,\,\sqrt{v_4}
+                \end{bmatrix} \circ \left(\begin{bmatrix}
+					1 & \rho_{12} \\[5pt]
+					\rho_{12} & 1
+				\end{bmatrix} \otimes \begin{bmatrix}
+					e^{-h\mathbf{D}_{11}} & e^{-h\mathbf{D}_{12}} \\[5pt]
+					e^{-h\mathbf{D}_{21}} & e^{-h\mathbf{D}_{22}}
+				\end{bmatrix}\right) \\
+                \\
+                &=\begin{bmatrix}
+					v_1 & \sqrt{v_1}\,\sqrt{v_2} & \sqrt{v_1}\,\sqrt{v_3} & \sqrt{v_1}\,\sqrt{v_4} \\[5pt]
+					\sqrt{v_1}\,\sqrt{v_2} & v_2 & \sqrt{v_2}\,\sqrt{v_3} & \sqrt{v_2}\,\sqrt{v_4} \\[5pt]
+					\sqrt{v_1}\,\sqrt{v_3} & \sqrt{v_2}\,\sqrt{v_3} & v_3 & \sqrt{v_3}\,\sqrt{v_4} \\[5pt]
+					\sqrt{v_1}\,\sqrt{v_4} & \sqrt{v_2}\,\sqrt{v_4} & \sqrt{v_3}\,\sqrt{v_4} & v_4
+				\end{bmatrix} \circ \begin{bmatrix}
+                    e^{-h\mathbf{D}_{11}} & e^{-h\mathbf{D}_{12}} & \rho_{12}\,e^{-h\mathbf{D}_{11}} & \rho_{12}\,e^{-h\mathbf{D}_{12}} \\[5pt]
+                    e^{-h\mathbf{D}_{21}} & e^{-h\mathbf{D}_{22}} & \rho_{12}\,e^{-h\mathbf{D}_{21}} & \rho_{12}\,e^{-h\mathbf{D}_{22}} \\[5pt]
+                    \rho_{12}\,e^{-h\mathbf{D}_{11}} & \rho_{12}\,e^{-h\mathbf{D}_{12}} & e^{-h\mathbf{D}_{11}} & e^{-h\mathbf{D}_{12}} \\[5pt]
+                    \rho_{12}\,e^{-h\mathbf{D}_{21}} & \rho_{12}\,e^{-h\mathbf{D}_{22}} & e^{-h\mathbf{D}_{21}} & e^{-h\mathbf{D}_{22}}
+				\end{bmatrix} \\
+				\\
+				&=\begin{bmatrix}
+					v_1\,e^{-h\mathbf{D}_{11}} & \sqrt{v_1}\,\sqrt{v_2}\,e^{-h\mathbf{D}_{12}} & \sqrt{v_1}\,\sqrt{v_3}\,\rho_{12}\,e^{-h\mathbf{D}_{11}} & \sqrt{v_1}\,\sqrt{v_4}\,\rho_{12}\,e^{-h\mathbf{D}_{12}} \\[5pt]
+					\sqrt{v_1}\,\sqrt{v_2}\,e^{-h\mathbf{D}_{21}} & v_2\,e^{-h\mathbf{D}_{22}} & \sqrt{v_2}\,\sqrt{v_3}\,\rho_{12}\,e^{-h\mathbf{D}_{21}} & \sqrt{v_2}\,\sqrt{v_4}\,\rho_{12}\,e^{-h\mathbf{D}_{22}} \\[5pt]
+					\sqrt{v_1}\,\sqrt{v_3}\,\rho_{12}\,e^{-h\mathbf{D}_{11}} & \sqrt{v_2}\,\sqrt{v_3}\,\rho_{12}\,e^{-h\mathbf{D}_{12}} & v_3\,e^{-h\mathbf{D}_{11}} & \sqrt{v_3}\,\sqrt{v_4}\,e^{-h\mathbf{D}_{12}} \\[5pt]
+					\sqrt{v_1}\,\sqrt{v_4}\,\rho_{12}\,e^{-h\mathbf{D}_{21}} & \sqrt{v_2}\,\sqrt{v_4}\,\rho_{12}\,e^{-h\mathbf{D}_{22}} & \sqrt{v_3}\,\sqrt{v_4}\,e^{-h\mathbf{D}_{21}} & v_4\,e^{-h\mathbf{D}_{22}}
+				\end{bmatrix}.
+			\end{split}
+$$
+
+The parameters to be estimated in this final example are:
+
+$$
+\boldsymbol{\kappa} = \begin{bmatrix}
+    v_1, v_2, v_3, v_4, \rho_{12}, h
+\end{bmatrix}.
+$$
+
+To estimate these parameters we again need the partial derivatives of $\mathbf{s}\mathbf{s}^\top \circ \left(\mathbf{C}\_M \otimes e^{-h\mathbf{D}}\right)$ with respect to each parameter:
+
+$$
+\begin{split}
+\dfrac{\partial \left(\mathbf{s}\mathbf{s}^\top \circ \left(\mathbf{C}_M \otimes e^{-h\mathbf{D}}\right)\right)}{\partial v_1} &= \begin{bmatrix}
+            e^{-h\mathbf{D}_{11}} & \dfrac{0.5\,\sqrt{v_2}\,e^{-h\mathbf{D}_{12}}}{\sqrt{v_1}} & \dfrac{0.5\,\sqrt{v_3}\,\rho_{12}\,e^{-h\mathbf{D}_{11}}}{\sqrt{v_1}} & \dfrac{0.5\,\sqrt{v_4}\,\rho_{12}\,e^{-h\mathbf{D}_{12}}}{\sqrt{v_1}} \\[10pt]
+            \dfrac{0.5\,\sqrt{v_2}\,e^{-h\mathbf{D}_{21}}}{\sqrt{v_1}} & 0 & 0 & 0 \\[10pt]
+            \dfrac{0.5\,\sqrt{v_3}\,\rho_{12}\,e^{-h\mathbf{D}_{11}}}{\sqrt{v_1}} & 0 & 0 & 0 \\[10pt]
+            \dfrac{0.5\,\sqrt{v_4}\,\rho_{12}\,e^{-h\mathbf{D}_{21}}}{\sqrt{v_1}} & 0 & 0 & 0
+        \end{bmatrix} \\
+\\
+\dfrac{\partial \left(\mathbf{s}\mathbf{s}^\top \circ \left(\mathbf{C}_M \otimes e^{-h\mathbf{D}}\right)\right)}{\partial v_2} &= \begin{bmatrix}
+				0 & \dfrac{0.5\,\sqrt{v_1}\,e^{-h\mathbf{D}_{12}}}{\sqrt{v_2}} & 0 & 0 \\[10pt]
+				\dfrac{0.5\,\sqrt{v_1}\,e^{-h\mathbf{D}_{21}}}{\sqrt{v_2}} & e^{-h\mathbf{D}_{22}} & \dfrac{0.5\,\sqrt{v_3}\,\rho_{12}\,e^{-h\mathbf{D}_{21}}}{\sqrt{v_2}} & \dfrac{0.5\,\sqrt{v_4}\,\rho_{12}\,e^{-h\mathbf{D}_{22}}}{\sqrt{v_2}} \\[10pt]
+				0 & \dfrac{0.5\,\sqrt{v_3}\,\rho_{12}\,e^{-h\mathbf{D}_{12}}}{\sqrt{v_2}} & 0 & 0 \\[10pt]
+				0 & \dfrac{0.5\,\sqrt{v_4}\,\rho_{12}\,e^{-h\mathbf{D}_{22}}}{\sqrt{v_2}} & 0 & 0
+			\end{bmatrix} \\
+\\
+\dfrac{\partial \left(\mathbf{s}\mathbf{s}^\top \circ \left(\mathbf{C}_M \otimes e^{-h\mathbf{D}}\right)\right)}{\partial v_3} &= \begin{bmatrix}
+				0 & 0 & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,e^{-h\mathbf{D}_{11}}}{\sqrt{v_3}} & 0 \\[10pt]
+				0 & 0 & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,e^{-h\mathbf{D}_{21}}}{\sqrt{v_3}} & 0 \\[10pt]
+				\dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,e^{-h\mathbf{D}_{11}}}{\sqrt{v_3}} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,e^{-h\mathbf{D}_{12}}}{\sqrt{v_3}} & e^{-h\mathbf{D}_{11}} & \dfrac{0.5\,\sqrt{v_4}\,e^{-h\mathbf{D}_{12}}}{\sqrt{v_3}} \\[10pt]
+				0 & 0 & \dfrac{0.5\,\sqrt{v_4}\,e^{-h\mathbf{D}_{21}}}{\sqrt{v_3}} & 0
+			\end{bmatrix} \\
+\\
+\dfrac{\partial \left(\mathbf{s}\mathbf{s}^\top \circ \left(\mathbf{C}_M \otimes e^{-h\mathbf{D}}\right)\right)}{\partial v_4} &= \begin{bmatrix}
+				0 & 0 & 0 & \dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,e^{-h\mathbf{D}_{12}}}{\sqrt{v_4}} \\[10pt]
+				0 & 0 & 0 & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,e^{-h\mathbf{D}_{22}}}{\sqrt{v_4}} \\[10pt]
+				0 & 0 & 0 & \dfrac{0.5\,\sqrt{v_3}\,e^{-h\mathbf{D}_{12}}}{\sqrt{v_4}} \\[10pt]
+				\dfrac{0.5\,\sqrt{v_1}\,\rho_{12}\,e^{-h\mathbf{D}_{21}}}{\sqrt{v_4}} & \dfrac{0.5\,\sqrt{v_2}\,\rho_{12}\,e^{-h\mathbf{D}_{22}}}{\sqrt{v_4}} & \dfrac{0.5\,\sqrt{v_3}\,e^{-h\mathbf{D}_{21}}}{\sqrt{v_4}} & e^{-h\mathbf{D}_{22}}
+			\end{bmatrix} \\
+\\
+\dfrac{\partial \left(\mathbf{s}\mathbf{s}^\top \circ \left(\mathbf{C}_M \otimes e^{-h\mathbf{D}}\right)\right)}{\partial \rho_{12}} &= \begin{bmatrix}
+				0 & 0 & \sqrt{v_1}\,\sqrt{v_3}\,e^{-h\mathbf{D}_{11}} & \sqrt{v_1}\,\sqrt{v_4}\,e^{-h\mathbf{D}_{12}} \\[10pt]
+				0 & 0 & \sqrt{v_2}\,\sqrt{v_3}\,e^{-h\mathbf{D}_{21}} & \sqrt{v_2}\,\sqrt{v_4}\,e^{-h\mathbf{D}_{22}} \\[10pt]
+				\sqrt{v_1}\,\sqrt{v_3}\,e^{-h\mathbf{D}_{11}} & \sqrt{v_2}\,\sqrt{v_3}\,e^{-h\mathbf{D}_{12}} & 0 & 0 \\[10pt]
+				\sqrt{v_1}\,\sqrt{v_4}\,e^{-h\mathbf{D}_{21}} & \sqrt{v_2}\,\sqrt{v_4}\,e^{-h\mathbf{D}_{22}} & 0 & 0
+			\end{bmatrix} \\
+\\
+\dfrac{\partial \left(\mathbf{s}\mathbf{s}^\top \circ \left(\mathbf{C}_M \otimes e^{-h\mathbf{D}}\right)\right)}{\partial h} &= \begin{bmatrix}
+				-\mathbf{D}_{11}v_1\,e^{-h\mathbf{D}_{11}} & -\mathbf{D}_{12}\sqrt{v_1}\,\sqrt{v_2}\,e^{-h\mathbf{D}_{12}} & -\mathbf{D}_{11}\sqrt{v_1}\,\sqrt{v_3}\,\rho_{12}\,e^{-h\mathbf{D}_{11}} & -\mathbf{D}_{12}\sqrt{v_1}\,\sqrt{v_4}\,\rho_{12}\,e^{-h\mathbf{D}_{12}} \\[10pt]
+				-\mathbf{D}_{21}\sqrt{v_1}\,\sqrt{v_2}\,e^{-h\mathbf{D}_{21}} & -\mathbf{D}_{22}v_2\,e^{-h\mathbf{D}_{22}} & -\mathbf{D}_{21}\sqrt{v_2}\,\sqrt{v_3}\,\rho_{12}\,e^{-h\mathbf{D}_{21}} & -\mathbf{D}_{22}\sqrt{v_2}\,\sqrt{v_4}\,\rho_{12}\,e^{-h\mathbf{D}_{22}} \\[10pt]
+				-\mathbf{D}_{11}\sqrt{v_1}\,\sqrt{v_3}\,\rho_{12}\,e^{-h\mathbf{D}_{11}} & -\mathbf{D}_{12}\sqrt{v_2}\,\sqrt{v_3}\,\rho_{12}\,e^{-h\mathbf{D}_{12}} & -\mathbf{D}_{11}v_3\,e^{-h\mathbf{D}_{11}} & -\mathbf{D}_{12}\sqrt{v_3}\,\sqrt{v_4}\,e^{-h\mathbf{D}_{12}} \\[10pt]
+				-\mathbf{D}_{21}\sqrt{v_1}\,\sqrt{v_4}\,\rho_{12}\,e^{-h\mathbf{D}_{21}} & -\mathbf{D}_{22}\sqrt{v_2}\,\sqrt{v_4}\,\rho_{12}\,e^{-h\mathbf{D}_{22}} & -\mathbf{D}_{21}\sqrt{v_3}\,\sqrt{v_4}\,e^{-h\mathbf{D}_{21}} & -\mathbf{D}_{22}v_4\,e^{-h\mathbf{D}_{22}}
+			\end{bmatrix}.
+\end{split}
+$$
 
 The R function below automatically computes the covariance matrix $\mathbf{s}\mathbf{s}^\top\circ\left(\mathbf{C}\_{M} \otimes e^{-h\,\mathbf{D}}\right)$ and its partial derivatives:
 {% include codeHeader.html %}
