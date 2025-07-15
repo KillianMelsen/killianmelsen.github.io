@@ -41,6 +41,11 @@ minima:
     - { platform: linkedin, user_url: "https://www.linkedin.com/in/killianmelsen/", title: Killian Melsen on LinkedIn }
     - { platform: googlescholar, user_url: "https://scholar.google.com/citations?user=pvSP7FsAAAAJ&hl=en", title: Killian Melsen on Google Scholar }
     - { platform: WUR, user_url: https://www.wur.nl/en/persons/killian-melsen.htm, title: Killian Melsen on WUR }
+
+markdown: kramdown
+kramdown:
+  syntax_highlighter: rouge
+highlighter: rouge
   
 plugins:
   - jekyll-feed
