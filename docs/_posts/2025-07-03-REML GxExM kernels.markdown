@@ -208,7 +208,8 @@ vf <- function(order, kappa) {
 }
 {% endhighlight %}
 and can be used with ASReml-R using the following code:
-```R
+{% include codeHeader.html %}
+{% highlight r %}
 p <- length(levels(data$Management)) # Number of managements
 
 init <- c(rep(0.1, p), rep(0.1, (p^2 - p) / 2)) # Initial values for the p variances and (p^2 - p) / 2 correlations
@@ -219,7 +220,7 @@ fit <- asreml(fixed = Y ~ -1 + ManagementEnvironment,
               random = ~ own(ManagementEnvironment, "vf", init, type, cons):vm(Genotype, K),
               residual = ~ units,
               data = data)
-```
+{% endhighlight %}
 assuming that `data` is a dataframe with columns containing the factor levels for `Management`, `Environment`, `Genotype`, and an extra column with the levels for a factor combining `Management` and `Environment` (`ManagementEnvironment`).
 Variance components can be retrieved as usual (`summary(fit)$varcomp`).
 There will not be any descriptive rownames for the variance components, so refer to the comments above the `vf()` function definition above to see which variance components correspond to which parameters.
