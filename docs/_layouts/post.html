@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const knownFunctions = ["devtools", "cornfruit"]; // add more here
   document.querySelectorAll('code span.n').forEach(el => {
     if (knownFunctions.includes(el.textContent)) {
+      el.classList.remove('n')
       el.classList.add('k');
     }
   });
