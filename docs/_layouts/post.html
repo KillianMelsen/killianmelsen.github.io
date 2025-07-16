@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   const knownFunctions = ["devtools", "cornfruit"]; // add more here
-  document.querySelectorAll('.highlight .language-r .n').forEach(el => {
+  document.querySelectorAll('code span.n').forEach(el => {
     if (knownFunctions.includes(el.textContent)) {
       el.classList.add('k');
     }
